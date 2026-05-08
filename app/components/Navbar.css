@@ -1,0 +1,238 @@
+.navbar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+
+.navbar-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.navbar-container {
+  width: 440px;
+  height: 70px;
+  background: #ffffff;
+  border: 0.2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000;
+  box-sizing: border-box;
+  transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar-container.is-open {
+  height: 520px;
+}
+
+.navbar-header {
+  min-height: 70px;
+  height: 70px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.navbar-menu-button {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.navbar-hamburger {
+  width: 35px;
+  height: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.navbar-hamburger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--foreground);
+  border-radius: 2px;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.is-open .navbar-hamburger span:nth-child(1) {
+  transform: translateY(4px) rotate(30deg);
+}
+
+.is-open .navbar-hamburger span:nth-child(2) {
+  transform: translateY(-4px) rotate(-30deg);
+}
+
+.close-text {
+  font-size: 25pt;
+  font-family: var(--font-soliden);
+  font-weight: 400;
+  /* Regular */
+  margin-left: 10px;
+  color: var(--foreground);
+  line-height: 1;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-8px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.is-open .close-text {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  transition-delay: 0.1s;
+}
+
+.navbar-logos {
+  display: contents;
+}
+
+.navbar-logo-icon {
+  position: absolute;
+  left: 75px;
+  /* 20px (left) + 35px (hamburger) + 20px (gap) */
+  width: 60px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.is-open .navbar-logo-icon {
+  left: 269px;
+  /* Calculated for 6px gap from Wordmark */
+  width: 50px;
+}
+
+.navbar-logo-wordmark {
+  position: absolute;
+  right: 25px;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.is-open .navbar-logo-wordmark {
+  width: 90px;
+}
+
+.navbar-logo-icon img,
+.navbar-logo-wordmark img {
+  width: 100%;
+  height: auto;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Align bottom relative to each other in open state */
+.is-open .navbar-logo-icon,
+.is-open .navbar-logo-wordmark {
+  align-items: flex-end;
+  height: 40px;
+  /* Consistent height for alignment */
+}
+
+.navbar-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  width: 100%;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-divider {
+  width: 400px;
+  height: 0.2px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.menu-item {
+  height: 70px;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* Left align */
+  padding-left: 20px;
+  /* 20px from left of line */
+  font-size: 40pt;
+  font-family: var(--font-soliden);
+  font-weight: 400;
+  color: var(--foreground);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  letter-spacing: -0.02em;
+  box-sizing: border-box;
+}
+
+.menu-item:hover {
+  padding-left: 30px;
+}
+
+.menu-arrow {
+  margin-left: 10px;
+  width: 40px;
+  height: 40px;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-item:hover .menu-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .navbar-container {
+    background: #000000;
+    border: 0.2px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .menu-divider {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .menu-arrow {
+    filter: invert(1);
+  }
+}
