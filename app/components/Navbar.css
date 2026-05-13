@@ -39,7 +39,7 @@
 }
 
 .navbar-container.is-open {
-  height: 520px;
+  height: 450px;
 }
 
 .navbar-header {
@@ -124,8 +124,7 @@
 }
 
 .is-open .navbar-logo-icon {
-  left: 269px;
-  /* Calculated for 6px gap from Wordmark */
+  left: calc(100% - 171px); /* Calculated for 6px gap from Wordmark: 100% - 25px (right) - 90px (width) - 6px (gap) - 50px (icon width) */
   width: 50px;
 }
 
@@ -193,7 +192,7 @@
   /* Left align */
   padding-left: 20px;
   /* 20px from left of line */
-  font-size: 40pt;
+  font-size: 35px;
   font-family: var(--font-soliden);
   font-weight: 400;
   color: var(--foreground);
@@ -221,6 +220,78 @@
   transform: translateX(0);
 }
 
+.menu-cta {
+  margin-top: 10px;
+  width: 400px;
+  height: 70px;
+  display: flex;
+  gap: 0;
+  text-decoration: none;
+  transition: gap 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cta-text-box {
+  flex: 1;
+  height: 100%;
+  background-color: var(--brand-primary);
+  color: var(--brand-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 35px;
+  font-family: var(--font-soliden);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.cta-arrow-box {
+  width: 0;
+  height: 70px;
+  background-color: var(--brand-secondary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cta-arrow-box img {
+  filter: brightness(0) invert(1); /* Make arrow white */
+}
+
+.menu-cta:hover {
+  gap: 10px;
+}
+
+.menu-cta:hover .cta-arrow-box {
+  width: 70px;
+  opacity: 1;
+}
+
+.navbar-socials {
+  margin-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.navbar-socials a {
+  color: #000000;
+  opacity: 1;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar-socials a:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
   .navbar-container {
@@ -234,5 +305,33 @@
 
   .menu-arrow {
     filter: invert(1);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .navbar-container {
+    width: 100%;
+    top: 0;
+    left: 0;
+    transform: none;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    z-index: 2000;
+  }
+
+  .menu-divider,
+  .menu-item,
+  .menu-cta {
+    width: calc(100% - 40px);
+  }
+
+  .menu-item {
+    font-size: 28px; /* Slightly smaller for mobile */
+  }
+
+  .cta-text-box {
+    font-size: 28px; /* Slightly smaller for mobile */
   }
 }

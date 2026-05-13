@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const soliden = localFont({
   src: [
@@ -39,7 +40,10 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-black">
         <Navbar />
-        {children}
+        <div className="flex-1">
+          {children}
+        </div>
+        <Footer />
       </body>
     </html>
   );
