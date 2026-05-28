@@ -7,18 +7,25 @@ import ServicesSection from "./components/ServicesSection";
 import HowParallax from "./components/HowParallax";
 import "./Home.css";
 
+const clientLogos = [
+  { src: "/ELiDA Logo.svg", alt: "ELiDA" },
+  { src: "/Setaweet.svg", alt: "Setaweet Movement" },
+  { src: "/YWCA.svg", alt: "YWCA Ethiopia" },
+  { src: "/Women Deliver.svg", alt: "Women Deliver" },
+];
+
 export default function Home() {
   return (
     <main>
       <HeroParallax>
         <div className="hero-content">
           <h1 className="hero-headline">
-            We help organizations<br />
-            do their work better.
+            We build strong systems<br />
+            for meaningful work.
           </h1>
           <p className="hero-body">
-            Not with generic frameworks or borrowed solutions, but by working alongside<br />
-            you to build systems, strategy, and practice that actually hold.
+            Working with organizations that are delivering important programs but need stronger systems,
+            clearer strategy, and better integration of safeguarding, ESG, and inclusion.
           </p>
           <div className="hero-actions">
             <a href="/work-with-us" className="hero-btn primary">
@@ -62,12 +69,12 @@ export default function Home() {
 
       <AboutReveal>
         <div className="about-cards-container">
-          <h2 className="about-cards-headline">Ye Etaba didn&apos;t start as a business idea.</h2>
+          <h2 className="about-cards-headline">Ye Etaba didn&apos;t begin as a business idea.</h2>
 
           <div className="about-cards-grid">
             <div className="about-card">
               <div className="about-card-content">
-                <h3>It started with what we <br /><span className="highlight">inherited.</span></h3>
+                <h3>It is rooted in what we <br /><span className="highlight">inherited.</span></h3>
               </div>
               <div className="about-card-image">
                 <Image
@@ -160,13 +167,7 @@ export default function Home() {
               We don&apos;t stop at<br />recommendations.
             </h2>
             <p className="how-subtext">
-              Most consulting ends when the document is delivered.
-            </p>
-            <h3 className="how-highlight">
-              Ours doesn&apos;t.
-            </h3>
-            <p className="how-subtext">
-              We stay until the work is embedded, and the capacity is yours.
+              We work alongside organizations to build and embed solutions.
             </p>
           </div>
         </div>
@@ -175,21 +176,32 @@ export default function Home() {
       <section className="projects-section editorial-section">
         <div className="editorial-grid">
           <div className="editorial-col-left">
-            <span className="editorial-label">Our Work</span>
             <h2 className="editorial-headline">
               Organizations we&apos;ve worked with.
             </h2>
           </div>
 
           <div className="editorial-col-right">
-            <div className="client-strip">
-              ELiDA · Setaweet Movement · YWCA Ethiopia · IDEA · Women Deliver · Malala Fund
+            <div className="client-strip" aria-label="Organizations we have worked with">
+              <div className="client-logo-track">
+                {clientLogos.concat(clientLogos).map((logo, index) => (
+                  <div className="client-logo-item" key={`${logo.alt}-${index}`}>
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      width={130}
+                      height={48}
+                      className="client-logo-image"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
             <p className="client-context">
               Across civil society, development, and the social enterprise sector.
             </p>
-            <a href="/projects" className="hero-btn secondary projects-cta">
-              <div className="hero-btn-text">view our work</div>
+            <a href="/projects" className="hero-btn primary projects-cta">
+              <div className="hero-btn-text">View Our Work</div>
               <div className="hero-btn-arrow">
                 <Image src="/Arrow Thick.svg" width={35} height={35} alt="" />
               </div>

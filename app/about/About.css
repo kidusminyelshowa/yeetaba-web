@@ -1,0 +1,649 @@
+.about-page {
+  background: #ffffff;
+  color: var(--brand-secondary);
+  overflow: hidden;
+}
+
+/* About Hero Styles */
+.about-hero-section {
+  position: relative;
+  min-height: 90vh;
+  padding: 180px 60px 80px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.about-hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 80px;
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.about-hero-text {
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.about-hero-label {
+  display: block;
+  font-family: var(--font-soliden);
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--brand-primary);
+  margin-bottom: 24px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.about-hero-title {
+  color: var(--brand-secondary);
+  text-transform: uppercase;
+  font-family: var(--font-soliden);
+  font-weight: 700;
+  font-size: 72px !important;
+  line-height: 1.05 !important;
+  margin: 0 0 32px 0;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.about-hero-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.about-hero-body p {
+  color: #1d1d1d;
+  font-size: 24px;
+  line-height: 1.35;
+  margin: 0;
+  max-width: 720px;
+}
+
+.about-hero-cta {
+  margin-top: 36px;
+  align-self: flex-start;
+}
+
+.about-hero-visual {
+  position: relative;
+  width: 100%;
+  height: 580px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-hero-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  transform: translateY(50px) scale(0.95);
+  transition: opacity 1.5s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.about-hero-img {
+  object-fit: cover;
+  transition: transform 0.3s ease-out;
+}
+
+.about-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(22, 51, 33, 0.15), transparent);
+  pointer-events: none;
+}
+
+/* Redesigned Story Section (Magazine/Editorial Style) */
+.about-story-section {
+  padding: 140px 60px;
+  background: #fbfbf9;
+  position: relative;
+}
+
+.about-story-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.about-story-header {
+  margin-bottom: 80px;
+  max-width: 800px;
+}
+
+.about-story-tag {
+  display: inline-block;
+  font-family: var(--font-soliden);
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: var(--brand-primary);
+  letter-spacing: 0.15em;
+  margin-bottom: 16px;
+}
+
+.about-story-main-title {
+  font-family: var(--font-soliden);
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 1.1;
+  color: var(--brand-secondary);
+  text-transform: uppercase;
+}
+
+/* Asymmetric Story Layout */
+.about-story-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+  margin-bottom: 120px;
+}
+
+.about-story-row.reverse {
+  grid-template-columns: 1fr 1fr;
+}
+
+.about-story-image-box {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(22, 51, 33, 0.06);
+}
+
+.story-img {
+  object-fit: cover;
+}
+
+.about-story-content-box {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.about-story-content-box h3 {
+  font-family: var(--font-soliden);
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 1.15;
+  color: var(--brand-secondary);
+  margin: 0;
+}
+
+.about-story-content-box p {
+  font-size: 20px;
+  line-height: 1.45;
+  color: #333333;
+  margin: 0;
+}
+
+.story-quote-card {
+  background: #ffffff;
+  border-left: 6px solid var(--brand-primary);
+  padding: 24px 32px;
+  border-radius: 0 16px 16px 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  margin-top: 12px;
+}
+
+.story-quote-card p {
+  font-family: var(--font-soliden);
+  font-size: 22px !important;
+  line-height: 1.35 !important;
+  color: var(--brand-secondary) !important;
+  font-weight: 700;
+}
+
+/* Core Philosophy Section */
+.about-philosophy-section {
+  background-color: var(--brand-secondary);
+  /* Dark green */
+  color: #ffffff;
+  padding: 140px 60px;
+}
+
+.about-philosophy-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.about-philosophy-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 80px auto;
+}
+
+.about-philosophy-headline {
+  font-family: var(--font-soliden);
+  font-weight: 700;
+  font-size: 56px;
+  color: var(--brand-primary);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.about-philosophy-desc {
+  font-size: 24px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.about-philosophy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.philosophy-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 48px 40px;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.philosophy-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.philosophy-num {
+  font-family: var(--font-soliden);
+  font-weight: 700;
+  font-size: 180px;
+  color: #142114;
+  opacity: 0.2;
+  text-transform: uppercase;
+  letter-spacing: 0em;
+  display: block;
+  margin: -45 0 -25px 0;
+}
+
+.philosophy-card h3 {
+  font-family: var(--font-soliden);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.1;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+}
+
+.philosophy-card p {
+  font-size: 18px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+/* How We Work Section (Asymmetric Grid layout) */
+.about-principles-section {
+  background-color: #ffffff;
+  padding: 140px 100px;
+}
+
+.about-page-headline {
+  color: var(--brand-secondary) !important;
+  text-transform: uppercase;
+  font-family: var(--font-soliden);
+  font-weight: 700;
+  font-size: 56px !important;
+  line-height: 1.05 !important;
+  margin: 0;
+}
+
+.about-principles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 60px;
+}
+
+.about-principle-item {
+  background: #fbfbf9;
+  border-radius: 20px;
+  padding: 40px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
+}
+
+.about-principle-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  border-radius: 20px 20px 0 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.about-principle-item:hover {
+  transform: translateY(-5px);
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(14, 34, 22, 0.1);
+}
+
+.about-principle-item:hover::before {
+  opacity: 1;
+}
+
+.principle-index {
+  font-family: var(--font-soliden);
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1;
+  color: rgba(22, 51, 33, 0.08);
+  margin-bottom: 24px;
+  transition: color 0.3s ease;
+}
+
+.about-principle-item:hover .principle-index {
+  color: var(--brand-primary);
+}
+
+.about-principle-item h3 {
+  margin: 0 0 12px 0;
+  font-family: var(--font-soliden);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.15;
+  color: var(--brand-secondary);
+}
+
+.about-principle-item p {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.4;
+  color: #4a4a4a;
+}
+
+/* Who We Best Serve Section (Distinct Card Panels) */
+.about-fit-section {
+  background: #fbfbf9;
+  padding: 140px 100px;
+}
+
+.about-fit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  margin-top: 60px;
+}
+
+.about-fit-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.about-fit-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.03);
+}
+
+.about-fit-icon {
+  background: var(--brand-primary);
+  /* Light primary tinted bg */
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-weight: bold;
+  color: var(--brand-secondary);
+}
+
+.about-fit-icon-symbol {
+  font-size: 24px;
+}
+
+.about-fit-info h3 {
+  font-family: var(--font-soliden);
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--brand-secondary);
+  margin: 0 0 8px 0;
+}
+
+.about-fit-info p {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.4;
+  color: #4a4a4a;
+}
+
+/* Founders / Leadership Section */
+.about-founders-section {
+  background: #ffffff;
+  padding: 140px 60px;
+}
+
+.about-founders-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.about-founders-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.about-founders-intro h2 {
+  font-family: var(--font-soliden);
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--brand-secondary);
+}
+
+.about-founders-intro p {
+  font-size: 20px;
+  line-height: 1.45;
+  color: #4a4a4a;
+  margin-top: 24px;
+}
+
+.founders-profiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.founder-profile-card {
+  background: #fbfbf9;
+  border-radius: 20px;
+  padding: 40px;
+}
+
+.founder-role {
+  display: block;
+  font-family: var(--font-soliden);
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: var(--brand-primary);
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.founder-profile-card h3 {
+  font-family: var(--font-soliden);
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--brand-secondary);
+  margin: 0 0 16px 0;
+}
+
+.founder-profile-card p {
+  font-size: 17px;
+  line-height: 1.45;
+  color: #4a4a4a;
+  margin: 0 0 24px 0;
+}
+
+.founder-specialties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.founder-tag {
+  background: #ffffff;
+  border: 1px solid rgba(22, 51, 33, 0.1);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: var(--brand-secondary);
+  font-weight: 600;
+}
+
+/* Contact CTA closing section */
+.about-closing-section {
+  background: #000000;
+  padding: 140px 100px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .about-hero-label,
+  .about-hero-title,
+  .about-hero-body,
+  .about-hero-image-wrapper {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .about-principle-item {
+    transition: none;
+  }
+
+  .about-principle-item:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 1200px) {
+  .about-hero-title {
+    font-size: 56px !important;
+  }
+
+  .about-story-row {
+    gap: 60px;
+  }
+
+  .about-philosophy-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .about-principles-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .about-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .about-hero-visual {
+    height: 400px;
+  }
+
+  .about-story-row,
+  .about-story-row.reverse {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-bottom: 80px;
+  }
+
+  .about-story-image-box {
+    height: 400px;
+  }
+
+  .about-fit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-founders-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .about-hero-section,
+  .about-story-section,
+  .about-philosophy-section,
+  .about-principles-section,
+  .about-fit-section,
+  .about-founders-section,
+  .about-closing-section {
+    padding: 100px 24px 60px;
+  }
+
+  .about-hero-title,
+  .about-story-main-title,
+  .about-philosophy-headline,
+  .about-page-headline,
+  .about-founders-intro h2 {
+    font-size: 40px !important;
+  }
+
+  .about-hero-body p,
+  .about-philosophy-desc {
+    font-size: 18px;
+  }
+
+  .founders-profiles {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
