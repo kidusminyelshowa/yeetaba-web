@@ -13,6 +13,9 @@ export default function HeroParallax({
     const section = sectionRef.current;
     if (!section) return;
 
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (isMobile) return;
+
     const headline = section.querySelector(".hero-headline") as HTMLElement;
     const body = section.querySelector(".hero-body") as HTMLElement;
     const actions = section.querySelector(".hero-actions") as HTMLElement;

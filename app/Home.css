@@ -1,3 +1,16 @@
+/* ============================================================
+   HOME PAGE STYLES
+   Structure: Base → Component → Media Queries (mobile-down)
+   ============================================================ */
+
+/* ---- Global overflow guard ---- */
+html, body {
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   1. HERO SECTION
+   ============================================================ */
 .hero-section {
   width: 100%;
   height: 100vh;
@@ -11,7 +24,6 @@
 .hero-content {
   position: absolute;
   bottom: 60px;
-  /* Reverted to original */
   left: 60px;
   max-width: 1400px;
   display: flex;
@@ -204,6 +216,7 @@
   /* Show original dark arrow on light primary bg */
 }
 
+/* ---- Hero Buttons (shared across pages) ---- */
 .hero-btn {
   display: flex;
   width: 280px;
@@ -276,45 +289,7 @@
   opacity: 1;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .hero-content {
-    left: 30px;
-    bottom: 60px;
-    max-width: calc(100% - 60px);
-  }
-
-  .hero-headline {
-    font-size: 42px;
-  }
-
-  .hero-body {
-    font-size: 18px;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .hero-btn {
-    width: 100%;
-    height: 56px;
-  }
-
-  .hero-btn-text {
-    font-size: 16px;
-  }
-
-  .hero-btn:hover .hero-btn-arrow {
-    width: 56px;
-  }
-
-  .hero-project-feature {
-    display: none;
-  }
-}
-
+/* ---- Hero dark mode ---- */
 @media (prefers-color-scheme: dark) {
   .hero-section {
     background-color: #000000;
@@ -336,11 +311,12 @@
   }
 }
 
-/* Global Editorial Layout */
-/* About Cards Section */
+
+/* ============================================================
+   2. ABOUT CARDS SECTION
+   ============================================================ */
 .about-cards-section {
   background-color: #163321;
-  /* Dark forest green */
   padding: 120px 60px;
   width: 100%;
   box-sizing: border-box;
@@ -357,7 +333,6 @@
   font-size: 70px;
   color: var(--brand-primary);
   text-transform: uppercase;
-  /* Light lime/mint green */
   text-align: center;
   margin-bottom: 40px;
   letter-spacing: -0.02em;
@@ -416,7 +391,7 @@
 }
 
 .card-illustration {
-  width: auto;
+  width: 100%;
   height: auto;
   display: block;
 }
@@ -448,28 +423,10 @@
   /* Dark arrow on lime bg */
 }
 
-@media (max-width: 1200px) {
-  .about-cards-headline {
-    font-size: 48px;
-  }
 
-  .about-card-content h3,
-  .about-card-content p {
-    font-size: 28px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .about-cards-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .about-card {
-    min-height: auto;
-  }
-}
-
+/* ============================================================
+   3. EDITORIAL LAYOUT (shared by problems / projects / contact)
+   ============================================================ */
 .editorial-section {
   padding: 160px 60px;
   background-color: #ffffff;
@@ -482,7 +439,6 @@
   max-width: 1600px;
   margin: 0 auto;
   align-items: center;
-  /* Vertically centers text group relative to the image */
 }
 
 .editorial-headline {
@@ -519,6 +475,10 @@
   color: var(--brand-secondary);
 }
 
+
+/* ============================================================
+   4. PROBLEMS SECTION
+   ============================================================ */
 .problems-section {
   position: relative;
   overflow: hidden;
@@ -560,27 +520,21 @@
 
 .problem-pill {
   display: flex;
-  /* Changed from inline-flex */
   width: 100%;
-  /* Spans full column width */
   align-items: center;
   background-color: var(--brand-primary);
-  /* Accurate green from zoomed image */
   border-radius: 10px;
   position: relative;
   overflow: visible;
-  /* To allow notches to sit on the edge */
 }
 
 .pill-part {
   flex: 1;
-  /* Each half takes equal space */
   padding: 20px 20px;
   font-family: var(--font-soliden);
   font-weight: 700;
   font-size: 20px;
   text-align: center;
-  /* Centered within its half */
   white-space: nowrap;
 }
 
@@ -591,9 +545,7 @@
 .pill-part.weak {
   color: #163321;
   opacity: 0.8;
-  /* Slightly more visible than before */
   font-weight: 400;
-  /* Regular weight for the 'weak' part */
 }
 
 .pill-part.fade-in {
@@ -617,7 +569,6 @@
   width: 25px;
   height: 25px;
   background-color: #ffffff;
-  /* Must match section background */
   border-radius: 50%;
   transform: translateX(-50%);
   z-index: 2;
@@ -656,7 +607,6 @@
 .problem-image {
   width: 100%;
   height: 680px;
-  /* Taller height as requested */
   object-fit: cover;
   border-radius: 40px;
   display: block;
@@ -672,7 +622,10 @@
   font-size: 32px !important;
 }
 
-/* Services Editorial List */
+
+/* ============================================================
+   5. SERVICES EDITORIAL LIST (legacy)
+   ============================================================ */
 .services-editorial-list {
   display: flex;
   flex-direction: column;
@@ -697,7 +650,10 @@
   max-width: 540px;
 }
 
-/* Projects Section Refined */
+
+/* ============================================================
+   6. PROJECTS SECTION
+   ============================================================ */
 .projects-section {
   background-color: #f9f9f9;
 }
@@ -765,6 +721,10 @@
   margin-top: 60px;
 }
 
+
+/* ============================================================
+   7. CLIENT LOGO MARQUEE
+   ============================================================ */
 .client-strip {
   width: 100%;
   max-width: 575px;
@@ -803,7 +763,6 @@
   from {
     transform: translateX(0);
   }
-
   to {
     transform: translateX(calc(-50% - 28px));
   }
@@ -812,25 +771,6 @@
 @media (prefers-reduced-motion: reduce) {
   .client-logo-track {
     animation: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .client-strip {
-    max-width: 100%;
-    height: 64px;
-  }
-
-  .client-logo-item {
-    height: 64px;
-  }
-
-  .client-logo-image {
-    height: 38px;
-  }
-
-  .client-logo-track {
-    gap: 40px;
   }
 }
 
@@ -847,7 +787,10 @@
   margin-bottom: 40px;
 }
 
-/* Contact CTA Section */
+
+/* ============================================================
+   8. CONTACT CTA SECTION
+   ============================================================ */
 .contact-cta-section {
   background-color: #000000;
   padding: 200px 60px;
@@ -879,58 +822,10 @@
   letter-spacing: 0.05em;
 }
 
-/* Global Mobile Responsive Adjustments */
-@media (max-width: 1024px) {
-  .editorial-section {
-    padding: 100px 40px;
-  }
 
-  .editorial-grid {
-    grid-template-columns: 1fr;
-    gap: 60px;
-  }
-
-  .editorial-headline {
-    font-size: 60px;
-  }
-
-  .editorial-body p {
-    font-size: 20px;
-  }
-
-  .project-name {
-    font-size: 36px;
-  }
-}
-
-@media (max-width: 768px) {
-  .editorial-section {
-    padding: 80px 24px;
-  }
-
-  .editorial-headline {
-    font-size: 48px;
-  }
-
-  .service-editorial-item h3 {
-    font-size: 32px;
-  }
-
-  .project-item {
-    padding: 40px 0;
-  }
-
-  .project-name {
-    font-size: 28px;
-  }
-
-  .project-item img {
-    width: 24px;
-    height: 24px;
-  }
-}
-
-/* How We Work Section - Based on more.png */
+/* ============================================================
+   9. HOW WE WORK SECTION
+   ============================================================ */
 .how-section {
   position: relative;
   background-color: #fcfdfc;
@@ -981,7 +876,7 @@
   color: #000000;
   line-height: 1.1;
   font-weight: 400;
-  max-width: 725x;
+  max-width: 725px;
 }
 
 .how-highlight {
@@ -994,7 +889,10 @@
   letter-spacing: -0.03em;
 }
 
-/* Services Section - RECREATE_SERVICES.md Spec */
+
+/* ============================================================
+   10. SERVICES ACCORDION SECTION
+   ============================================================ */
 .services-section {
   position: relative;
   background-color: #fff;
@@ -1094,6 +992,7 @@
   color: #163321;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 /* Active State Transformation */
@@ -1127,7 +1026,6 @@
 
 .service-row.active .service-body {
   max-height: 1000px;
-  /* Large enough to fit content */
   opacity: 1;
 }
 
@@ -1139,7 +1037,6 @@
   transform: translateY(20px);
   filter: blur(10px);
   opacity: 0;
-  /* Exit Transition (Immediate) */
   transition:
     opacity 0.4s ease,
     transform 0.4s ease,
@@ -1150,7 +1047,6 @@
   opacity: 1;
   transform: translateY(0);
   filter: blur(0);
-  /* Enter Transition (Delayed) */
   transition:
     opacity 0.6s ease 0.2s,
     transform 0.6s cubic-bezier(0.33, 1, 0.68, 1) 0.2s,
@@ -1186,18 +1082,449 @@
   display: block;
 }
 
+
+/* ============================================================
+   RESPONSIVE — TABLET (max-width: 1200px)
+   ============================================================ */
+@media (max-width: 1200px) {
+  .about-cards-headline {
+    font-size: 48px;
+  }
+
+  .about-card-content h3,
+  .about-card-content p {
+    font-size: 28px;
+  }
+}
+
+
+/* ============================================================
+   RESPONSIVE — TABLET (max-width: 1024px)
+   ============================================================ */
 @media (max-width: 1024px) {
+  /* About cards → single column */
+  .about-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .about-card {
+    min-height: auto;
+  }
+
+  /* Editorial layout → single column */
+  .editorial-section {
+    padding: 100px 40px;
+  }
+
+  .editorial-grid {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .editorial-col-left,
+  .editorial-col-right {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .editorial-headline {
+    font-size: 60px;
+  }
+
+  .editorial-body p {
+    font-size: 20px;
+  }
+
+  .project-name {
+    font-size: 36px;
+  }
+
+  /* How section → single column */
+  .how-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .how-section {
+    padding: 100px 40px;
+  }
+
+  .how-headline {
+    font-size: 52px;
+  }
+
+  .how-subtext {
+    font-size: 28px;
+  }
+
+  /* Services → single column */
+  .services-section {
+    padding: 100px 40px;
+  }
+
   .services-layout-grid {
     grid-template-columns: 1fr;
     gap: 40px;
   }
 
   .services-title {
-    font-size: 66px;
+    font-size: 52px;
   }
 
   .service-content-inner {
     grid-template-columns: 1fr;
     gap: 40px;
+  }
+
+  /* Contact section */
+  .contact-cta-section {
+    padding: 120px 40px;
+  }
+}
+
+
+/* ============================================================
+   RESPONSIVE — MOBILE (max-width: 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* ---- Hero ---- */
+  .hero-content {
+    left: 20px;
+    right: 20px;
+    bottom: 40px;
+    max-width: none;
+  }
+
+  .hero-headline {
+    font-size: 36px;
+  }
+
+  .hero-body {
+    font-size: 16px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hero-btn {
+    width: 100%;
+    height: 56px;
+  }
+
+  .hero-btn-text {
+    font-size: 16px;
+  }
+
+  .hero-btn:hover .hero-btn-arrow {
+    width: 56px;
+  }
+
+  .hero-project-feature {
+    display: none;
+  }
+
+  /* ---- About Cards ---- */
+  .about-cards-section {
+    padding: 60px 20px;
+  }
+
+  .about-cards-headline {
+    font-size: 32px;
+    text-align: left;
+    margin-bottom: 28px;
+  }
+
+  .about-cards-grid {
+    gap: 24px;
+  }
+
+  .about-card {
+    padding: 28px 20px;
+    min-height: auto;
+    border-radius: 16px;
+  }
+
+  .about-card-content h3 {
+    font-size: 28px;
+  }
+
+  .about-card-content p {
+    font-size: 18px;
+  }
+
+  .about-card-image {
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-bottom: -36px;
+  }
+
+  /* ---- Editorial (shared) ---- */
+  .editorial-section {
+    padding: 60px 20px;
+  }
+
+  .editorial-grid {
+    gap: 32px;
+    grid-template-columns: 1fr;
+  }
+
+  .editorial-col-left,
+  .editorial-col-right {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .editorial-headline {
+    font-size: clamp(24px, 6.5vw, 32px);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .editorial-body p {
+    font-size: 18px;
+  }
+
+  /* ---- Problems Section ---- */
+  .problem-headline {
+    font-size: 32px !important;
+  }
+
+  .problem-closing-alt {
+    font-size: 22px;
+  }
+
+  .problem-image {
+    height: 300px;
+    border-radius: 20px;
+  }
+
+  .pill-part {
+    padding: 14px 8px;
+    font-size: 13px;
+    white-space: normal;
+  }
+
+  .problem-pill::before,
+  .problem-pill::after {
+    width: 18px;
+    height: 18px;
+  }
+
+  .problem-pill::before {
+    top: -9px;
+  }
+
+  .problem-pill::after {
+    bottom: -9px;
+  }
+
+  /* ---- How Section ---- */
+  .how-section {
+    padding: 60px 20px;
+  }
+
+  .how-grid {
+    gap: 24px;
+  }
+
+  .how-headline {
+    font-size: 36px;
+    line-height: 1;
+  }
+
+  .how-subtext {
+    font-size: 18px;
+    max-width: 100%;
+  }
+
+  .how-highlight {
+    font-size: 36px;
+  }
+
+  /* ---- Services Section ---- */
+  .services-section {
+    padding: 60px 20px;
+  }
+
+  .services-layout-grid {
+    gap: 24px;
+  }
+
+  .services-title {
+    font-size: 36px;
+  }
+
+  .services-intro {
+    font-size: 18px;
+    margin-bottom: 32px;
+  }
+
+  .service-trigger {
+    padding: 20px 0;
+    gap: 16px;
+  }
+
+  .service-name {
+    font-size: 1.25rem;
+  }
+
+  .service-index {
+    font-size: 0.9rem;
+  }
+
+  .service-row.active {
+    padding: 0 16px;
+    border-radius: 14px;
+  }
+
+  .service-content-inner {
+    gap: 20px;
+    padding: 0 0 24px 0;
+  }
+
+  .service-info p {
+    font-size: 1rem;
+  }
+
+  .service-img-wrapper {
+    border-radius: 14px;
+  }
+
+  /* ---- Projects / Clients ---- */
+  .project-item {
+    padding: 28px 0;
+  }
+
+  .project-name {
+    font-size: 24px;
+  }
+
+  .project-item img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .projects-cta {
+    margin-top: 32px;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .client-strip {
+    max-width: 100%;
+    height: 56px;
+  }
+
+  .client-logo-item {
+    height: 56px;
+  }
+
+  .client-logo-image {
+    height: 32px;
+  }
+
+  .client-logo-track {
+    gap: 32px;
+  }
+
+  .client-context {
+    font-size: 16px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+  }
+
+  .editorial-headline {
+    font-size: clamp(24px, 6.5vw, 32px);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* ---- Contact CTA ---- */
+  .contact-cta-section {
+    padding: 80px 20px;
+  }
+
+  .contact-cta {
+    margin-top: 32px;
+  }
+
+  .contact-info-footer {
+    margin-top: 40px;
+    padding-top: 24px;
+  }
+
+  .contact-email {
+    font-size: 16px;
+  }
+
+  .service-editorial-item h3 {
+    font-size: 28px;
+  }
+}
+
+
+/* ============================================================
+   RESPONSIVE — SMALL MOBILE (max-width: 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+  .hero-headline {
+    font-size: 28px;
+  }
+
+  .hero-body {
+    font-size: 14px;
+  }
+
+  .about-cards-headline {
+    font-size: 26px;
+  }
+
+  .about-card-content h3 {
+    font-size: 24px;
+  }
+
+  .about-card-content p {
+    font-size: 16px;
+  }
+
+  .editorial-headline {
+    font-size: 28px;
+  }
+
+  .problem-headline {
+    font-size: 26px !important;
+  }
+
+  .how-headline {
+    font-size: 28px;
+  }
+
+  .how-subtext {
+    font-size: 16px;
+  }
+
+  .services-title {
+    font-size: 28px;
+  }
+
+  .service-name {
+    font-size: 1.1rem;
+  }
+
+  .project-name {
+    font-size: 20px;
+  }
+
+  .pill-part {
+    font-size: 11px;
+    padding: 12px 6px;
   }
 }

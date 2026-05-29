@@ -13,6 +13,9 @@ export default function HowParallax({
     const section = sectionRef.current;
     if (!section) return;
 
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (isMobile) return;
+
     const illustration = section.querySelector(".how-illustration") as HTMLElement;
     const headline = section.querySelector(".how-headline") as HTMLElement;
     const highlight = section.querySelector(".how-highlight") as HTMLElement;

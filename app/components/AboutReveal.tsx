@@ -20,6 +20,19 @@ export default function AboutReveal({
       ".about-card"
     ) as NodeListOf<HTMLElement>;
 
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (isMobile) {
+      if (headline) {
+        headline.style.opacity = "1";
+        headline.style.transform = "none";
+      }
+      cards.forEach((card) => {
+        card.style.opacity = "1";
+        card.style.transform = "none";
+      });
+      return;
+    }
+
     // Set initial hidden state
     if (headline) {
       headline.style.opacity = "0";
