@@ -87,7 +87,7 @@ export default function AboutHero() {
         <div className="about-hero-visual">
           <div className="about-hero-image-wrapper">
             <Image
-              src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200"
+              src="/Collaboration.jpeg"
               alt="Professional strategic collaboration"
               fill
               priority

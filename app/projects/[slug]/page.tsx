@@ -28,6 +28,10 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     );
   }
 
+  const galleryImages = project.images?.length
+    ? project.images
+    : [project.image, project.image, project.image];
+
   return (
     <main className="project-detail-page">
       {/* Project Hero Header */}
@@ -93,6 +97,38 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             <div className="project-overview">
               <p className="project-overview-text">{project.overview}</p>
             </div>
+
+            {project.images && project.images.length > 0 && (
+              <>
+                <div className="project-image-block">
+                  <div className="project-image-card">
+                    <Image
+                      src={galleryImages[0]}
+                      alt={`${project.title} image 1`}
+                      fill
+                      sizes="100vw"
+                      priority
+                    />
+                  </div>
+                </div>
+
+                {galleryImages.length > 1 && (
+                  <div className="project-image-row">
+                    {galleryImages.slice(1).map((image, index) => (
+                      <div key={index} className="project-image-card project-image-card-small">
+                        <Image
+                          src={image}
+                          alt={`${project.title} image ${index + 2}`}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          priority={index === 0}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
 
             <div className="project-highlights-section">
               <h3>Key Impacts & highlights</h3>

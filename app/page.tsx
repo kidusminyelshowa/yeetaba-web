@@ -5,6 +5,7 @@ import ProblemPill from "./components/ProblemPill";
 import AnimatedSwash from "./components/AnimatedSwash";
 import ServicesSection from "./components/ServicesSection";
 import HowParallax from "./components/HowParallax";
+import { projects } from "./projects/data";
 import "./Home.css";
 
 const clientLogos = [
@@ -15,6 +16,16 @@ const clientLogos = [
 ];
 
 export default function Home() {
+  // Find the ELiDA project
+  const elidaProject = projects.find((p) => p.slug === "elida");
+  
+  // Truncate the overview text to a reasonable length
+  const truncatedOverview = elidaProject?.overview
+    ? elidaProject.overview.length > 150
+      ? elidaProject.overview.substring(0, 150) + "..."
+      : elidaProject.overview
+    : "";
+
   return (
     <main>
       <HeroParallax>
@@ -43,28 +54,30 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="hero-project-feature">
-          <div className="feature-image">
-            <Image
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800"
-              alt="ELiDA Project"
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div className="feature-details">
-            <h3 className="feature-title">ELiDA</h3>
-            <p className="feature-desc">
-              Not with generic frameworks or borrowed solutions, but by working alongside you to build systems, strategy, and practice that actually hold.
-            </p>
-          </div>
-          <a href="/projects/project-one" className="feature-cta">
-            <div className="feature-cta-text">Explore Project</div>
-            <div className="feature-cta-arrow">
-              <Image src="/Arrow Thick.svg" width={24} height={24} alt="" />
+        {elidaProject && (
+          <div className="hero-project-feature">
+            <div className="feature-image">
+              <Image
+                src={elidaProject.image}
+                alt={elidaProject.title}
+                fill
+                className="object-cover"
+              />
             </div>
-          </a>
-        </div>
+            <div className="feature-details">
+              <h3 className="feature-title">{elidaProject.title}</h3>
+              <p className="feature-desc">
+                {truncatedOverview}
+              </p>
+            </div>
+            <a href={`/projects/${elidaProject.slug}`} className="feature-cta">
+              <div className="feature-cta-text">Explore Project</div>
+              <div className="feature-cta-arrow">
+                <Image src="/Arrow Thick.svg" width={24} height={24} alt="" />
+              </div>
+            </a>
+          </div>
+        )}
       </HeroParallax>
 
       <AboutReveal>

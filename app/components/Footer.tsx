@@ -51,7 +51,7 @@ export default function Footer() {
           </div>
 
           <div className="footer-socials">
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="footer-social-link">LinkedIn</a>
+            <a href="https://www.linkedin.com/company/ye-etaba-consultancy/" target="_blank" rel="noopener noreferrer" className="footer-social-link">LinkedIn</a>
             <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="footer-social-link">YouTube</a>
           </div>
         </div>

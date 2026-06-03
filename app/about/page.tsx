@@ -32,7 +32,7 @@ export default function AboutPage() {
             </div>
             <div className="about-story-image-box">
               <Image
-                src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=800"
+                src="/Care.jpeg"
                 alt="Inheritance and family inspiration"
                 fill
                 priority
@@ -45,7 +45,7 @@ export default function AboutPage() {
           <div className="about-story-row reverse">
             <div className="about-story-image-box">
               <Image
-                src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800"
+                src="/Vision.jpeg"
                 alt="Growth and team action"
                 fill
                 className="story-img"
