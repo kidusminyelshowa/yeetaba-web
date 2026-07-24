@@ -11,7 +11,7 @@ export default function Footer() {
           <div className="footer-brand">
             <div className="footer-wordmark">
               <Image
-                src="/ye-etaba-logo-wordmark.svg"
+                src="/ye-etaba-full-logo.svg"
                 alt="Ye Etaba Wordmark"
                 width={600}
                 height={120}
@@ -23,18 +23,18 @@ export default function Footer() {
 
           <div className="footer-nav">
             <div className="footer-nav-group">
-              <span className="footer-nav-label">Navigation</span>
+              <span className="footer-nav-label">Navigate</span>
               <div className="footer-nav-links">
                 <a href="/">Home</a>
                 <a href="/about">About</a>
 
                 <a href="/projects">Work</a>
-                <a href="/contact">Contact</a>
+                <a href="/work-with-us">Work with us</a>
               </div>
             </div>
 
             <div className="footer-nav-group">
-              <span className="footer-nav-label">Contact</span>
+              <span className="footer-nav-label">Reach us</span>
               <div className="footer-nav-links">
                 <span className="footer-info-item">Tsehay Getachew Building, Office 016/101, Addis Ababa, Ethiopia</span>
                 <a href="tel:+251911760472" className="footer-info-item">+251 91 176 0472</a>

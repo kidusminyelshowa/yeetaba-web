@@ -61,6 +61,16 @@ export default function HeroParallax({
 
   return (
     <section className="hero-section" ref={sectionRef}>
+      <video
+        className="hero-video"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+      >
+        <source src="/Day-2.webm" type="video/webm" />
+      </video>
       {children}
     </section>
   );

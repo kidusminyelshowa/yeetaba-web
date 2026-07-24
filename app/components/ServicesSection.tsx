@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 
 const services = [
@@ -31,46 +31,145 @@ const services = [
 ];
 
 export default function ServicesSection() {
-  const [activeId, setActiveId] = useState<string | null>(null);
+  const targetRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [scrollDistance, setScrollDistance] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [viewportHeight, setViewportHeight] = useState(800);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const updateMeasurements = () => {
+      if (trackRef.current) {
+        const trackWidth = trackRef.current.scrollWidth;
+        const viewportWidth = window.innerWidth;
+        const distance = trackWidth - viewportWidth;
+        setScrollDistance(distance > 0 ? distance : 0);
+      }
+      setViewportHeight(window.innerHeight);
+    };
+
+    // Use ResizeObserver to track layout changes and solve dynamic hydration offsets
+    const resizeObserver = new ResizeObserver(() => {
+      updateMeasurements();
+    });
+
+    if (trackRef.current) {
+      resizeObserver.observe(trackRef.current);
+    }
+
+    updateMeasurements();
+    
+    // Multiple timers to handle delayed fonts and images loading
+    const timer1 = setTimeout(updateMeasurements, 100);
+    const timer2 = setTimeout(updateMeasurements, 400);
+    const timer3 = setTimeout(updateMeasurements, 1000);
+
+    const handleScroll = () => {
+      if (targetRef.current && trackRef.current) {
+        const rect = targetRef.current.getBoundingClientRect();
+        const topOfSection = rect.top + window.scrollY;
+        const currentScroll = window.scrollY;
+
+        const trackWidth = trackRef.current.scrollWidth;
+        const viewportWidth = window.innerWidth;
+        const distance = trackWidth - viewportWidth;
+
+        if (distance <= 0) {
+          setProgress(0);
+          return;
+        }
+
+        const start = topOfSection;
+        const end = topOfSection + distance;
+
+        if (currentScroll < start) {
+          setProgress(0);
+        } else if (currentScroll > end) {
+          setProgress(1);
+        } else {
+          setProgress((currentScroll - start) / distance);
+        }
+      }
+    };
+
+    window.addEventListener("resize", updateMeasurements);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Run initial alignment
+    handleScroll();
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateMeasurements);
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+    };
+  }, []);
 
   return (
-    <section className="services-section" id="services">
-      <div className="services-layout-grid">
-        <div className="services-left-col">
-          <h2 className="services-title">What we do</h2>
+    <section
+      ref={targetRef}
+      className="services-scroll-container"
+      id="services"
+      style={{
+        height: scrollDistance ? `${scrollDistance + viewportHeight}px` : "200vh"
+      }}
+    >
+      <div className="services-sticky-wrapper">
+        <div className="services-header-content">
+          <div className="services-header-grid">
+            <div className="services-header-left">
+              <h2 className="services-title">What we do</h2>
+            </div>
+            <div className="services-header-right">
+              <p className="services-intro">
+                We help organizations turn meaningful work into strong systems,
+                ethical practice, and impact that is credible, visible, and sustainable.
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="services-right-col">
-          <p className="services-intro">
-            We help organizations turn meaningful work into strong systems,
-            ethical practice, and impact that is credible, visible, and sustainable.
-          </p>
-          <div className="services-accordion">
+
+        <div className="services-track-container">
+          <div
+            ref={trackRef}
+            className="services-cards-track"
+            style={{
+              transform: `translate3d(${-progress * scrollDistance}px, 0px, 0px)`,
+              transition: "transform 0.05s linear"
+            }}
+          >
             {services.map((s) => (
-              <div
-                key={s.id}
-                className={`service-row ${activeId === s.id ? 'active' : ''}`}
-                onClick={() => setActiveId(activeId === s.id ? null : s.id)}
-              >
-                <div className="service-trigger">
-                  <span className="service-index">[{s.id}]</span>
-                  <span className="service-name">{s.name}</span>
-                  <span className="service-chevron">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path d="M6 9l6 6 6-6" />
-                    </svg>
-                  </span>
+              <div key={s.id} className="service-card-open">
+                <div className="service-card-header">
+                  <span className="service-card-index">[{s.id}]</span>
+                  <h3 className="service-card-title">{s.name}</h3>
                 </div>
-                <div className="service-body">
-                  <div className="service-content-inner">
-                    <div className="service-info">
-                      <p>{s.desc}</p>
-                    </div>
-                    <div className="service-image">
-                      <div className="service-img-wrapper">
-                        {/* We will need to ensure these images exist or use the generated ones */}
-                        <div className="service-img-placeholder" style={{ backgroundColor: 'rgba(255,255,255,0.1)', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '20px' }}>
-                          <span style={{ color: '#fff', opacity: 0.5, fontSize: '0.8rem' }}>Image coming soon</span>
-                        </div>
+                <div className="service-card-body">
+                  <div className="service-card-info">
+                    <p>{s.desc}</p>
+                  </div>
+                  <div className="service-card-image">
+                    <div className="service-img-wrapper">
+                      <div
+                        className="service-img-placeholder"
+                        style={{
+                          backgroundColor: "rgba(255, 255, 255, 0.1)",
+                          width: "100%",
+                          height: "100%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          borderRadius: "20px"
+                        }}
+                      >
+                        <span style={{ color: "#fff", opacity: 0.5, fontSize: "0.8rem" }}>
+                          Image coming soon
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -83,3 +182,8 @@ export default function ServicesSection() {
     </section>
   );
 }
+
+
+
+
+

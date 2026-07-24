@@ -44,7 +44,6 @@
 .footer-wordmark img {
   width: 100%;
   height: auto;
-  filter: brightness(0);
 }
 
 .footer-nav {
@@ -140,7 +139,7 @@ a.footer-info-item:hover {
     flex-direction: column;
     gap: 60px;
   }
-  
+
   .footer-nav {
     gap: 60px;
   }
@@ -160,36 +159,5 @@ a.footer-info-item:hover {
     flex-direction: column;
     align-items: flex-start;
     gap: 32px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .footer-container {
-    background-color: #000000;
-    border-top-color: #1a1a1a;
-  }
-
-  .footer-wordmark img {
-    filter: brightness(0) invert(1);
-  }
-
-  .footer-nav-links a {
-    color: #ffffff;
-  }
-
-  .footer-bottom {
-    border-top-color: #1a1a1a;
-  }
-
-  .footer-social-link {
-    color: #ffffff;
-  }
-
-  .footer-tagline {
-    color: #aaaaaa;
-  }
-
-  .footer-info-item {
-    color: #999999;
   }
 }

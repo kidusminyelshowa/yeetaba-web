@@ -18,7 +18,7 @@ const clientLogos = [
 export default function Home() {
   // Find the ELiDA project
   const elidaProject = projects.find((p) => p.slug === "elida");
-  
+
   // Truncate the overview text to a reasonable length
   const truncatedOverview = elidaProject?.overview
     ? elidaProject.overview.length > 150
@@ -103,7 +103,7 @@ export default function Home() {
             <div className="about-card">
               <div className="about-card-content">
                 <p>
-                  Two sisters. A grandmother who showed us what it means to care for people. A mother who showed us how to lead.
+                  From our grandmother, who showed us what it means to care deeply and show up for people, and from our mother, who showed us how to lead with clarity, strength, and direction.
                 </p>
               </div>
               <div className="about-card-image">
@@ -119,7 +119,8 @@ export default function Home() {
 
             <div className="about-card last-card">
               <div className="about-card-content">
-                <h3>That&apos;s still how we work.</h3>
+                <h3>That care and leadership shapes how we work today.
+                </h3>
               </div>
               <div className="about-card-footer">
                 <a href="/about" className="hero-btn primary about-card-cta">

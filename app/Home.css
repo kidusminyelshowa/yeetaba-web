@@ -4,8 +4,9 @@
    ============================================================ */
 
 /* ---- Global overflow guard ---- */
-html, body {
-  overflow-x: hidden;
+html,
+body {
+  overflow-x: clip;
 }
 
 /* ============================================================
@@ -16,13 +17,30 @@ html, body {
   height: 100vh;
   position: relative;
   overflow: hidden;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('/Hero Image.jpeg');
-  background-size: cover;
-  background-position: center;
+  background-color: #000;
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Overlay tint to match the previous hero treatment */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+  z-index: 1;
 }
 
 .hero-content {
   position: absolute;
+  z-index: 2;
   bottom: 60px;
   left: 60px;
   max-width: 1400px;
@@ -63,6 +81,7 @@ html, body {
 /* Hero Project Feature Card */
 .hero-project-feature {
   position: absolute;
+  z-index: 2;
   right: 60px;
   bottom: 60px;
   width: 460px;
@@ -96,7 +115,7 @@ html, body {
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  opacity: 0.5;
+  opacity: 0.2;
   transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -287,28 +306,6 @@ html, body {
 .hero-btn:hover .hero-btn-arrow {
   width: 60px;
   opacity: 1;
-}
-
-/* ---- Hero dark mode ---- */
-@media (prefers-color-scheme: dark) {
-  .hero-section {
-    background-color: #000000;
-  }
-
-  .hero-headline,
-  .hero-body {
-    color: #ffffff;
-  }
-
-  .hero-btn.secondary .hero-btn-text {
-    background-color: transparent;
-    color: #ffffff;
-    border: 0.2px solid rgba(255, 255, 255, 0.3);
-  }
-
-  .hero-btn.secondary .hero-btn-arrow {
-    border: 0.2px solid rgba(255, 255, 255, 0.3);
-  }
 }
 
 
@@ -763,6 +760,7 @@ html, body {
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(calc(-50% - 28px));
   }
@@ -891,21 +889,39 @@ html, body {
 
 
 /* ============================================================
-   10. SERVICES ACCORDION SECTION
+   10. SERVICES HORIZONTAL SCROLL SECTION
    ============================================================ */
-.services-section {
+.services-scroll-container {
   position: relative;
-  background-color: #fff;
-  padding: 160px 60px;
-  overflow: hidden;
+  background-color: #ffffff;
 }
 
-.services-layout-grid {
+.services-sticky-wrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 0;
+  box-sizing: border-box;
+}
+
+.services-header-content {
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 60px;
+  box-sizing: border-box;
+  margin-bottom: 36px;
+}
+
+.services-header-grid {
   display: grid;
   grid-template-columns: 0.5fr 1.5fr;
   gap: 80px;
-  max-width: 1600px;
-  margin: 0 auto;
+  align-items: flex-start;
 }
 
 .services-title {
@@ -915,150 +931,88 @@ html, body {
   color: var(--brand-secondary);
   line-height: 1;
   text-transform: uppercase;
+  margin: 0;
 }
 
 .services-intro {
   font-family: var(--font-soliden);
-  font-size: 25px;
+  font-size: 24px;
   color: var(--brand-secondary);
-  line-height: 1.2;
-  margin-bottom: 80px;
+  line-height: 1.3;
   font-weight: 500;
   max-width: 800px;
+  margin: 0;
 }
 
-/* Accordion Logic */
-.services-accordion {
-  border-top: 1.5px solid rgba(0, 0, 0, 0.1);
-}
 
-.service-row {
-  border-bottom: 1.5px solid rgba(0, 0, 0, 0.1);
-  transition:
-    background-color 0.6s cubic-bezier(0.33, 1, 0.68, 1),
-    margin 0.6s cubic-bezier(0.33, 1, 0.68, 1),
-    border-radius 0.6s cubic-bezier(0.33, 1, 0.68, 1),
-    padding 0.6s cubic-bezier(0.33, 1, 0.68, 1),
-    border-bottom-color 0.4s ease;
+.services-track-container {
+  width: 100%;
   overflow: hidden;
-  cursor: pointer;
 }
 
-.service-row:hover .service-index {
-  color: var(--brand-secondary);
-  opacity: 1;
-  transform: translateX(5px);
-}
-
-.service-row:hover .service-name {
-  color: var(--brand-secondary);
-}
-
-.service-row.active:hover .service-index,
-.service-row.active:hover .service-name {
-  color: #FFFFFF;
-  transform: none;
-}
-
-.service-trigger {
+.services-cards-track {
   display: flex;
-  align-items: center;
-  padding: 40px 0;
-  gap: 40px;
+  gap: 32px;
+  padding-left: 60px;
+  padding-right: 60px;
+  width: max-content;
+  will-change: transform;
 }
 
-.service-index {
+/* Service Card (Open Accordion Design) */
+.service-card-open {
+  width: calc(88vw - 60px);
+  max-width: 1280px;
+  min-width: 850px;
+  flex-shrink: 0;
+  background-color: var(--brand-secondary);
+  border-radius: 20px;
+  padding: 44px 48px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  box-sizing: border-box;
+}
+
+.service-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.service-card-index {
   font-family: var(--font-soliden);
   font-weight: 700;
   font-size: 1.2rem;
-  color: #333;
-  opacity: 0.5;
-  line-height: 1;
-  transition: transform 0.4s cubic-bezier(0.33, 1, 0.68, 1), color 0.4s ease, opacity 0.4s ease;
+  color: #ffffff;
+  opacity: 0.7;
+  line-height: 1.2;
 }
 
-.service-name {
+.service-card-title {
   font-family: var(--font-soliden);
   font-weight: 700;
   font-size: 2.2rem;
-  color: #163321;
-  flex-grow: 1;
+  color: #ffffff;
+  margin: 0;
   line-height: 1.2;
-  transition: all 0.3s ease;
 }
 
-.service-chevron {
-  transition: transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
-  color: #163321;
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-/* Active State Transformation */
-.service-row.active {
-  background-color: var(--brand-secondary);
-  border-bottom-color: transparent;
-  border-radius: 20px;
-  margin: 10px 0;
-  padding: 0 40px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.service-row.active .service-index,
-.service-row.active .service-name,
-.service-row.active .service-chevron {
-  color: #FFFFFF;
-  opacity: 1;
-}
-
-.service-row.active .service-chevron {
-  transform: rotate(180deg);
-}
-
-/* Smooth Accordion Body */
-.service-body {
-  max-height: 0;
-  transition: max-height 0.6s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.4s ease;
-  overflow: hidden;
-  opacity: 0;
-}
-
-.service-row.active .service-body {
-  max-height: 1000px;
-  opacity: 1;
-}
-
-.service-content-inner {
-  padding: 0 0 40px 0;
+.service-card-body {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  transform: translateY(20px);
-  filter: blur(10px);
-  opacity: 0;
-  transition:
-    opacity 0.4s ease,
-    transform 0.4s ease,
-    filter 0.4s ease;
+  gap: 60px;
+  align-items: center;
 }
 
-.service-row.active .service-content-inner {
-  opacity: 1;
-  transform: translateY(0);
-  filter: blur(0);
-  transition:
-    opacity 0.6s ease 0.2s,
-    transform 0.6s cubic-bezier(0.33, 1, 0.68, 1) 0.2s,
-    filter 0.8s ease 0.2s;
-}
-
-.service-info p {
+.service-card-info p {
   font-family: var(--font-soliden);
   font-size: 1.2rem;
   line-height: 1.6;
-  color: #fff;
+  color: #ffffff;
   opacity: 0.9;
+  margin: 0;
 }
 
 .service-img-wrapper {
@@ -1066,21 +1020,10 @@ html, body {
   aspect-ratio: 16/10;
   border-radius: 20px;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.05);
-  transform: scale(1.1);
-  transition: transform 1.2s cubic-bezier(0.33, 1, 0.68, 1);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
-.service-row.active .service-img-wrapper {
-  transform: scale(1);
-}
 
-.service-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
 
 
 /* ============================================================
@@ -1102,6 +1045,7 @@ html, body {
    RESPONSIVE — TABLET (max-width: 1024px)
    ============================================================ */
 @media (max-width: 1024px) {
+
   /* About cards → single column */
   .about-cards-grid {
     grid-template-columns: 1fr;
@@ -1158,24 +1102,35 @@ html, body {
     font-size: 28px;
   }
 
-  /* Services → single column */
-  .services-section {
-    padding: 100px 40px;
-  }
-
-  .services-layout-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
+  /* Services → Horizontal Scroll Tablet */
+  .services-header-content {
+    padding: 0 40px;
+    margin-bottom: 24px;
   }
 
   .services-title {
     font-size: 52px;
   }
 
-  .service-content-inner {
-    grid-template-columns: 1fr;
-    gap: 40px;
+  .services-cards-track {
+    padding-left: 40px;
+    padding-right: 40px;
   }
+
+  .service-card-open {
+    width: calc(88vw - 40px);
+    min-width: auto;
+    padding: 32px 36px;
+  }
+
+  .service-card-title {
+    font-size: 1.8rem;
+  }
+
+  .service-card-info p {
+    font-size: 1rem;
+  }
+
 
   /* Contact section */
   .contact-cta-section {
@@ -1346,54 +1301,57 @@ html, body {
     font-size: 36px;
   }
 
-  /* ---- Services Section ---- */
-  .services-section {
-    padding: 60px 20px;
+  /* ---- Services Section Mobile ---- */
+  .services-header-content {
+    padding: 0 20px;
+    margin-bottom: 20px;
   }
 
-  .services-layout-grid {
-    gap: 24px;
+  .services-header-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .services-title {
     font-size: 36px;
+    margin-bottom: 8px;
   }
 
   .services-intro {
-    font-size: 18px;
-    margin-bottom: 32px;
+    font-size: 16px;
   }
 
-  .service-trigger {
-    padding: 20px 0;
-    gap: 16px;
-  }
 
-  .service-name {
-    font-size: 1.25rem;
-  }
-
-  .service-index {
-    font-size: 0.9rem;
-  }
-
-  .service-row.active {
-    padding: 0 16px;
-    border-radius: 14px;
-  }
-
-  .service-content-inner {
+  .services-cards-track {
+    padding-left: 20px;
+    padding-right: 20px;
     gap: 20px;
-    padding: 0 0 24px 0;
   }
 
-  .service-info p {
-    font-size: 1rem;
+  .service-card-open {
+    width: 85vw;
+    padding: 24px 20px;
+    border-radius: 16px;
+    gap: 20px;
+  }
+
+  .service-card-title {
+    font-size: 1.35rem;
+  }
+
+  .service-card-body {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .service-card-info p {
+    font-size: 0.95rem;
   }
 
   .service-img-wrapper {
     border-radius: 14px;
   }
+
 
   /* ---- Projects / Clients ---- */
   .project-item {

@@ -38,7 +38,7 @@ export default function RootLayout({
       lang="en"
       className={`${soliden.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-black">
+      <body className="min-h-full flex flex-col bg-zinc-50">
         <Navbar />
         <div className="flex-1">
           {children}
