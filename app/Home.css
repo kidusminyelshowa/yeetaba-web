@@ -1281,27 +1281,50 @@ body {
   }
 
   .about-cards-grid {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 24px;
+    width: 100%;
   }
 
   .about-card {
-    padding: 28px 20px;
+    padding: 32px 24px;
     min-height: auto;
-    border-radius: 16px;
+    width: 100%;
+    box-sizing: border-radius;
+    border-radius: 20px;
+  }
+
+  .about-card.last-card {
+    grid-column: auto;
   }
 
   .about-card-content h3 {
-    font-size: 28px;
+    font-size: 26px;
+    line-height: 1.2;
   }
 
   .about-card-content p {
     font-size: 18px;
+    line-height: 1.35;
   }
 
   .about-card-image {
-    margin-left: -20px;
-    margin-right: -20px;
-    margin-bottom: -36px;
+    margin-top: 24px;
+    margin-left: -24px;
+    margin-right: -24px;
+    margin-bottom: -32px;
+    width: calc(100% + 48px);
+    overflow: hidden;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  .card-illustration {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 
   /* ---- Editorial (shared) ---- */
