@@ -1027,16 +1027,103 @@ body {
 
 
 /* ============================================================
+   RESPONSIVE — LAPTOP / MACBOOK SCREEN SCALING (max-width: 1536px)
+   ============================================================ */
+@media (max-width: 1536px) {
+  .hero-headline {
+    font-size: clamp(48px, 4.8vw, 72px);
+  }
+
+  .hero-body {
+    font-size: clamp(18px, 1.5vw, 22px);
+    max-width: 850px;
+  }
+
+  .hero-content {
+    left: 40px;
+    bottom: 40px;
+    max-width: 58vw;
+  }
+
+  .hero-project-feature {
+    right: 40px;
+    bottom: 40px;
+    width: clamp(340px, 28vw, 420px);
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .feature-title {
+    font-size: clamp(28px, 2.5vw, 36px);
+  }
+
+  .about-cards-headline {
+    font-size: clamp(44px, 4.2vw, 64px);
+  }
+
+  .about-card {
+    padding: 32px 28px;
+    min-height: 480px;
+  }
+
+  .about-card-content h3 {
+    font-size: clamp(30px, 2.6vw, 42px);
+  }
+
+  .about-card-content p {
+    font-size: clamp(20px, 1.8vw, 26px);
+  }
+
+  .editorial-section {
+    padding: 120px 40px;
+  }
+
+  .editorial-headline {
+    font-size: clamp(44px, 4vw, 62px);
+  }
+
+  .problem-headline {
+    font-size: clamp(42px, 3.8vw, 58px) !important;
+  }
+
+  .problem-closing-alt {
+    font-size: clamp(24px, 2vw, 32px);
+  }
+
+  .editorial-body p {
+    font-size: clamp(20px, 1.6vw, 24px);
+  }
+
+  .services-title {
+    font-size: clamp(44px, 4vw, 60px);
+  }
+
+  .services-intro {
+    font-size: clamp(18px, 1.5vw, 22px);
+  }
+}
+
+/* ============================================================
    RESPONSIVE — TABLET (max-width: 1200px)
    ============================================================ */
 @media (max-width: 1200px) {
   .about-cards-headline {
-    font-size: 48px;
+    font-size: 44px;
+  }
+
+  .about-cards-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .about-card.last-card {
+    grid-column: span 2;
+    min-height: auto;
   }
 
   .about-card-content h3,
   .about-card-content p {
-    font-size: 28px;
+    font-size: 26px;
   }
 }
 

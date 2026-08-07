@@ -6,17 +6,9 @@ import './Navbar.css';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAltNavbar, setIsAltNavbar] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('yeetaba-alt-navbar');
-    if (saved === 'true') {
-      setIsAltNavbar(true);
-    }
-    setMounted(true);
-
     const handleScroll = () => {
       if (window.scrollY > 10) {
         setScrolled(true);
@@ -28,12 +20,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleNavbarDesign = () => {
-    const newVal = !isAltNavbar;
-    setIsAltNavbar(newVal);
-    localStorage.setItem('yeetaba-alt-navbar', String(newVal));
-  };
-
   return (
     <>
       <div
@@ -41,179 +27,84 @@ export default function Navbar() {
         onClick={() => setIsOpen(false)}
       />
 
-      <nav className={`navbar-container ${isAltNavbar ? 'is-alt' : ''} ${isOpen ? 'is-open' : ''} ${scrolled ? 'is-scrolled' : ''}`}>
-        {!isAltNavbar ? (
-          /* Classic Navbar Layout */
-          <>
-            <div className="navbar-header">
-              <div
-                className="navbar-menu-button"
-                onClick={() => setIsOpen(!isOpen)}
-                aria-expanded={isOpen}
-                role="button"
-                tabIndex={0}
-              >
-                <div className="navbar-hamburger">
-                  <span></span>
-                  <span></span>
-                </div>
-                <span className="close-text">Close</span>
-              </div>
+      <nav className={`navbar-container ${isOpen ? 'is-open' : ''} ${scrolled ? 'is-scrolled' : ''}`}>
+        <div className="navbar-header">
+          <div
+            className="navbar-menu-button"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-expanded={isOpen}
+            role="button"
+            tabIndex={0}
+          >
+            <div className="navbar-hamburger">
+              <span></span>
+              <span></span>
+            </div>
+            <span className="close-text">Close</span>
+          </div>
 
-              <div className="navbar-logos">
-                <div className="navbar-logo-icon">
-                  <Image
-                    src="/ye-etaba-logo-icon.svg"
-                    alt="Ye Etaba Icon"
-                    width={60}
-                    height={40}
-                    priority
-                  />
-                </div>
-
-                <div className="navbar-logo-wordmark">
-                  <Image
-                    src="/ye-etaba-wordmark.svg"
-                    alt="Ye Etaba Wordmark"
-                    width={100}
-                    height={20}
-                    style={{ width: '100%', height: 'auto' }}
-                    priority
-                  />
-                </div>
-              </div>
+          <div className="navbar-logos">
+            <div className="navbar-logo-icon">
+              <Image
+                src="/ye-etaba-logo-icon.svg"
+                alt="Ye Etaba Icon"
+                width={60}
+                height={40}
+                priority
+              />
             </div>
 
-            {isOpen && (
-              <div className="navbar-content">
-                <div className="menu-divider"></div>
-                <a href="/" className="menu-item" onClick={() => setIsOpen(false)}>
-                  <span>Home</span>
-                  <Image src="/Arrow Thin.svg" width={40} height={40} className="menu-arrow" alt="" />
-                </a>
+            <div className="navbar-logo-wordmark">
+              <Image
+                src="/ye-etaba-wordmark.svg"
+                alt="Ye Etaba Wordmark"
+                width={100}
+                height={20}
+                style={{ width: '100%', height: 'auto' }}
+                priority
+              />
+            </div>
+          </div>
+        </div>
 
-                <div className="menu-divider"></div>
-                <a href="/about" className="menu-item" onClick={() => setIsOpen(false)}>
-                  <span>About us</span>
-                  <Image src="/Arrow Thin.svg" width={40} height={40} className="menu-arrow" alt="" />
-                </a>
-
-                <div className="menu-divider"></div>
-                <a href="/projects" className="menu-item" onClick={() => setIsOpen(false)}>
-                  <span>Projects</span>
-                  <Image src="/Arrow Thin.svg" width={40} height={40} className="menu-arrow" alt="" />
-                </a>
-
-                <a href="/work-with-us" className="menu-cta" onClick={() => setIsOpen(false)}>
-                  <div className="cta-text-box">Work with us</div>
-                  <div className="cta-arrow-box">
-                    <Image src="/Arrow Thick.svg" width={35} height={35} alt="" />
-                  </div>
-                </a>
-
-                <div className="navbar-socials">
-                  <a href="https://www.linkedin.com/company/ye-etaba-consultancy/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
-                  </a>
-                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
-                  </a>
-                </div>
-              </div>
-            )}
-          </>
-        ) : (
-          /* Alternate Navbar Layout */
-          <div className="alt-navbar-wrapper">
-            <a href="/" className="alt-navbar-logo">
-              <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 589.33 133.33" style={{ height: '35px', width: 'auto' }}>
-                <g id="Layer_2-2" data-name="Layer 2">
-                  <g>
-                    <polygon className="alt-logo-icon" points="79.36 108.89 50.16 133.33 24.76 133.33 24.13 101.27 49.21 100.95 50.16 100.95 0 66.67 18.41 40 67.3 75.24 79.36 108.89"/>
-                    <polygon className="alt-logo-icon" points="158.73 100.95 184.76 101.27 184.13 133.33 158.73 133.33 129.52 108.89 141.59 75.24 190.47 40 208.89 66.67 159.68 100.63 158.73 100.95"/>
-                    <polygon className="alt-logo-icon" points="155.55 32.06 139.05 73.33 103.17 95.24 69.52 71.75 49.21 9.84 81.9 0 103.81 65.4 104.13 66.35 122.86 22.22 155.55 32.06"/>
-                    <path className="alt-logo-icon" d="M123.81,129.36c0,1.37-.13,2.7-.41,3.97h-38.22c-.29-1.27-.41-2.6-.41-3.97,0-10.79,8.73-19.52,19.52-19.52s19.52,8.73,19.52,19.52Z"/>
-                    <path className="alt-logo-icon" d="M201.74,79.05c0-.69.11-1.31.33-1.88.22-.57.53-1.05.94-1.45s.89-.72,1.45-.94c.57-.22,1.2-.33,1.89-.33s1.32.11,1.89.33c.57.22,1.05.53,1.45.94s.72.89.94,1.45c.22.57.33,1.19.33,1.88s-.11,1.31-.33,1.87c-.22.56-.53,1.05-.94,1.45-.4.41-.89.72-1.45.94-.57.22-1.2.33-1.89.33s-1.32-.11-1.89-.33c-.57-.22-1.05-.53-1.45-.94-.4-.41-.72-.89-.94-1.45-.22-.56-.33-1.19-.33-1.87ZM202.57,79.05c0,.56.09,1.08.28,1.54.18.46.44.86.77,1.19s.73.59,1.19.77.98.28,1.54.28,1.08-.09,1.54-.28.86-.44,1.19-.77c.33-.33.59-.73.77-1.19.18-.46.27-.98.27-1.54s-.09-1.08-.27-1.54c-.18-.46-.44-.86-.77-1.19-.33-.33-.73-.59-1.19-.77s-.98-.27-1.54-.27-1.08.09-1.54.27-.86.44-1.19.77-.59.73-.77,1.19c-.18.46-.28.98-.28,1.54ZM206.34,77.11c-1.15,0-1.72.65-1.72,1.94,0,.66.15,1.15.43,1.47.29.32.73.48,1.31.48.46,0,.81-.09,1.06-.28.25-.18.4-.47.45-.86h.84c-.04.64-.27,1.11-.68,1.44-.41.32-.96.48-1.66.48-.85,0-1.5-.23-1.94-.7s-.67-1.15-.67-2.04.22-1.55.66-2.02c.44-.46,1.09-.7,1.94-.7.69,0,1.24.16,1.66.49.41.33.64.81.69,1.44h-.84c-.1-.77-.61-1.15-1.53-1.15Z"/>
-                  </g>
-                  <g className="alt-logo-text">
-                    <path d="M240.83,24.42l17.95,30.64,17.95-30.64h8.93l-23.12,38.26v22.84h-7.61v-23.03l-23.03-38.07h8.93Z"/>
-                    <path d="M306.44,86.46c-8.08,0-14.24-2.22-18.47-6.67-4.23-4.45-6.34-10.96-6.34-19.55s2.02-14.82,6.06-19.27c4.04-4.45,9.98-6.67,17.81-6.67s13.32,1.96,17.39,5.88c4.07,3.92,6.11,9.48,6.11,16.69,0,1.07-.03,2.07-.09,3.01-.06.94-.13,1.69-.19,2.26h-39.67c.56,11.84,6.33,17.77,17.3,17.77,8.15,0,13-3.04,14.57-9.12h7.24c-1.13,5.2-3.51,9.12-7.14,11.75-3.64,2.63-8.49,3.95-14.57,3.95ZM321.77,56.56c0-5.14-1.38-9.05-4.14-11.75-2.76-2.69-6.8-4.04-12.13-4.04-9.84,0-15.29,5.26-16.36,15.79h32.62Z"/>
-                    <path d="M359.08,24.42h40.7v6.86h-33.09v19.93h31.21v6.58h-31.21v20.87h33.09v6.86h-40.7V24.42Z"/>
-                    <path d="M421.59,69.16c0,3.95.83,6.77,2.49,8.46,1.66,1.69,4.43,2.54,8.32,2.54,1.13,0,2.27-.05,3.43-.14,1.16-.09,2.18-.2,3.05-.33v6.11c-.75.12-1.85.27-3.29.42-1.44.16-2.88.24-4.32.24-11.28,0-16.92-5.33-16.92-15.98v-29.52h-11v-5.73h11v-13.25l7.24-1.88v15.13h16.92v5.73h-16.92v28.2Z"/>
-                    <path d="M441.71,71.98c0-4.39,1.46-7.83,4.37-10.34,2.91-2.51,7.1-3.76,12.55-3.76h17.01v-6.2c0-7.27-4.2-10.9-12.6-10.9-7.65,0-11.84,2.79-12.6,8.37h-7.43c.44-4.89,2.38-8.58,5.83-11.09,3.45-2.51,8.37-3.73,14.76-3.67,2.95,0,5.59.39,7.94,1.17,2.35.78,4.37,1.87,6.06,3.24,1.69,1.38,2.99,3.05,3.9,5.03.91,1.97,1.36,4.15,1.36,6.53v35.16h-5.45l-1.32-7.33c-3.51,5.52-9.24,8.27-17.2,8.27-5.33,0-9.53-1.3-12.6-3.9-3.07-2.6-4.61-6.12-4.61-10.58ZM475.64,63.14h-15.89c-3.38,0-6.02.82-7.9,2.44-1.88,1.63-2.82,3.79-2.82,6.49s.97,4.7,2.91,6.2,4.61,2.26,7.99,2.26c3.7,0,6.92-.81,9.68-2.44,2.76-1.63,4.76-3.85,6.02-6.67v-8.27Z"/>
-                    <path d="M494.63,17.84h7.24v22.47c1.94-1.69,4.26-3.12,6.96-4.28,2.69-1.16,5.92-1.74,9.68-1.74s7.02.6,9.96,1.79c2.94,1.19,5.44,2.91,7.47,5.17,2.04,2.26,3.6,4.98,4.7,8.18,1.1,3.2,1.65,6.8,1.65,10.81,0,8.33-1.99,14.79-5.97,19.36-3.98,4.58-9.63,6.86-16.97,6.86s-13.29-2.16-18.05-6.49l-1.22,5.55h-5.45V17.84ZM501.86,72.73c3.95,4.76,9.18,7.14,15.7,7.14,11.59,0,17.39-6.52,17.39-19.55,0-6.27-1.54-11.08-4.61-14.43-3.07-3.35-7.46-5.03-13.16-5.03-6.39,0-11.5,2.41-15.32,7.24v24.63Z"/>
-                    <path d="M546.98,71.98c0-4.39,1.46-7.83,4.37-10.34,2.91-2.51,7.1-3.76,12.55-3.76h17.01v-6.2c0-7.27-4.2-10.9-12.6-10.9-7.65,0-11.84,2.79-12.6,8.37h-7.43c.44-4.89,2.38-8.58,5.83-11.09,3.45-2.51,8.37-3.73,14.76-3.67,2.95,0,5.59.39,7.94,1.17,2.35.78,4.37,1.87,6.06,3.24,1.69,1.38,2.99,3.05,3.9,5.03.91,1.97,1.36,4.15,1.36,6.53v35.16h-5.45l-1.32-7.33c-3.51,5.52-9.24,8.27-17.2,8.27-5.33,0-9.53-1.3-12.6-3.9-3.07-2.6-4.61-6.12-4.61-10.58ZM580.92,63.14h-15.89c-3.38,0-6.02.82-7.9,2.44-1.88,1.63-2.82,3.79-2.82,6.49s.97,4.7,2.91,6.2,4.61,2.26,7.99,2.26c3.7,0,6.92-.81,9.68-2.44,2.76-1.63,4.76-3.85,6.02-6.67v-8.27Z"/>
-                  </g>
-                  <g className="alt-logo-consultancy">
-                    <path d="M476.65,105.3c0-2.15.55-3.82,1.66-5,1.1-1.18,2.68-1.78,4.72-1.78,3.52,0,5.5,1.59,5.95,4.77h-1.77c-.37-2.21-1.77-3.31-4.22-3.31-1.52,0-2.67.45-3.46,1.36-.79.91-1.19,2.22-1.19,3.94s.39,3.07,1.18,3.98c.79.91,1.94,1.36,3.47,1.36,1.26,0,2.23-.27,2.91-.82.68-.55,1.12-1.37,1.31-2.47h1.77c-.23,1.58-.84,2.78-1.82,3.58-.98.81-2.36,1.21-4.13,1.21-2.06,0-3.63-.59-4.73-1.78-1.1-1.18-1.64-2.87-1.64-5.04Z"/>
-                    <path d="M489.78,106.46c0-1.81.46-3.2,1.38-4.16s2.27-1.44,4.04-1.44,3.1.48,4.01,1.44c.91.96,1.37,2.35,1.37,4.16s-.46,3.26-1.37,4.22c-.91.96-2.25,1.44-4.01,1.44s-3.12-.48-4.04-1.44-1.38-2.37-1.38-4.22ZM491.36,106.46c0,2.83,1.27,4.24,3.82,4.24s3.82-1.41,3.82-4.24-1.27-4.2-3.82-4.2-3.82,1.4-3.82,4.2Z"/>
-                    <path d="M502.06,101.06h1.18l.32,1.46c.45-.5.96-.9,1.54-1.21.58-.3,1.29-.46,2.13-.46,1.24,0,2.23.37,2.95,1.12.72.75,1.09,1.77,1.09,3.09v6.86h-1.56v-6.56c0-1-.25-1.77-.75-2.3-.5-.53-1.22-.8-2.15-.8-.64,0-1.22.15-1.76.46-.54.3-1.01.73-1.43,1.27v7.94h-1.56v-10.86Z"/>
-                    <path d="M521.43,108.87c0,1-.38,1.79-1.14,2.38s-1.78.87-3.06.87c-.72,0-1.36-.09-1.93-.26s-1.05-.42-1.45-.73c-.4-.31-.7-.69-.89-1.13-.2-.44-.29-.92-.27-1.45h1.54c0,.66.26,1.2.79,1.59.53.4,1.28.6,2.25.6.31,0,.62-.03.92-.08.3-.05.58-.15.82-.29.24-.14.44-.33.6-.57.16-.24.23-.54.23-.9,0-.54-.22-.91-.67-1.12-.45-.2-1.14-.34-2.07-.41-1.46-.11-2.56-.39-3.29-.85-.73-.46-1.1-1.22-1.1-2.27s.38-1.83,1.13-2.46c.75-.62,1.78-.93,3.1-.93.61,0,1.17.07,1.68.22.51.15.96.36,1.33.64.37.28.67.62.9,1.02.23.4.37.86.41,1.37h-1.58c-.09-.6-.38-1.06-.86-1.38-.48-.32-1.11-.49-1.88-.49-.3,0-.61.03-.92.1-.32.07-.6.18-.85.33-.25.15-.46.34-.62.59-.16.24-.24.55-.24.91,0,.64.25,1.08.74,1.34.49.26,1.26.43,2.3.53,1.35.12,2.37.39,3.06.79.68.41,1.02,1.09,1.02,2.05Z"/>
-                    <path d="M531.66,111.92h-1.16l-.32-1.44c-.43.5-.93.9-1.48,1.2-.55.3-1.23.45-2.03.45-1.19,0-2.13-.37-2.82-1.12s-1.04-1.77-1.04-3.09v-6.86h1.56v6.56c0,1,.23,1.77.7,2.3.47.54,1.14.8,2.02.8.61,0,1.16-.15,1.67-.46.5-.3.95-.73,1.34-1.29v-7.92h1.56v10.86Z"/>
-                    <path d="M533.95,97.1h1.56v14.82h-1.56v-14.82Z"/>
-                    <path d="M540.28,108.38c0,.85.18,1.46.54,1.83.36.37.96.55,1.8.55.24,0,.49,0,.74-.03s.47-.04.66-.07v1.32c-.16.03-.4.06-.71.09-.31.03-.62.05-.93.05-2.44,0-3.65-1.15-3.65-3.45v-6.37h-2.38v-1.24h2.38v-2.86l1.56-.41v3.27h3.65v1.24h-3.65v6.09Z"/>
-                    <path d="M544.28,108.99c0-.95.32-1.69.94-2.23s1.53-.81,2.71-.81h3.67v-1.34c0-1.57-.91-2.36-2.72-2.36-1.65,0-2.56.6-2.72,1.81h-1.6c.09-1.06.51-1.85,1.26-2.4.74-.54,1.81-.8,3.19-.79.64,0,1.21.08,1.71.25.51.17.94.4,1.31.7s.65.66.84,1.09c.2.43.29.9.29,1.41v7.59h-1.18l-.28-1.58c-.76,1.19-2,1.79-3.72,1.79-1.15,0-2.06-.28-2.72-.84s-1-1.32-1-2.28ZM551.61,107.09h-3.43c-.73,0-1.3.18-1.71.53-.41.35-.61.82-.61,1.4s.21,1.02.63,1.34c.42.33,1,.49,1.73.49.8,0,1.5-.18,2.09-.53s1.03-.83,1.3-1.44v-1.79Z"/>
-                    <path d="M555.37,101.06h1.18l.32,1.46c.45-.5.96-.9,1.54-1.21.58-.3,1.29-.46,2.13-.46,1.24,0,2.23.37,2.95,1.12.72.75,1.09,1.77,1.09,3.09v6.86h-1.56v-6.56c0-1-.25-1.77-.75-2.3-.5-.53-1.22-.8-2.15-.8-.64,0-1.22.15-1.76.46-.54.3-1.01.73-1.43,1.27v7.94h-1.56v-10.86Z"/>
-                    <path d="M571.22,102.25c-2.49.01-3.74,1.42-3.74,4.22s1.27,4.22,3.82,4.22c1.95,0,3.03-.82,3.25-2.46h1.54c-.11,1.29-.58,2.25-1.43,2.9-.85.65-1.97.97-3.36.97-1.73,0-3.05-.48-3.97-1.45-.91-.97-1.37-2.37-1.37-4.21s.45-3.2,1.35-4.16c.9-.96,2.22-1.44,3.97-1.44,1.41,0,2.53.33,3.37.97s1.31,1.62,1.42,2.9h-1.54c-.2-1.65-1.31-2.48-3.31-2.48Z"/>
-                    <path d="M577.07,114.09c.08,0,.2,0,.35.01.15,0,.3.01.47.02.16,0,.32.01.47.01h.34c.39,0,.73-.1,1.02-.3s.51-.54.69-1l.26-.73-4.51-11.04h1.71l3.53,9.05,3.45-9.05h1.71l-4.71,11.9c-.31.81-.69,1.44-1.14,1.89-.45.45-1.08.67-1.89.67h-.37c-.16,0-.33,0-.51,0s-.34-.01-.51-.02c-.16,0-.28,0-.37,0v-1.38Z"/>
-                    <path d="M587.01,110.98c0-.34.1-.61.31-.82s.48-.31.82-.31.64.1.85.31.33.48.33.82-.11.61-.33.82c-.22.21-.5.31-.85.31s-.61-.11-.82-.31c-.21-.21-.31-.48-.31-.82Z"/>
-                  </g>
-                </g>
-              </svg>
+        {isOpen && (
+          <div className="navbar-content">
+            <div className="menu-divider"></div>
+            <a href="/" className="menu-item" onClick={() => setIsOpen(false)}>
+              <span>Home</span>
+              <Image src="/Arrow Thin.svg" width={40} height={40} className="menu-arrow" alt="" />
             </a>
 
-            {/* Desktop and tablet links */}
-            <div className="alt-navbar-links">
-              <a href="/about" className="alt-nav-link">About us</a>
-              <a href="/projects" className="alt-nav-link">Projects</a>
-              <a href="/work-with-us" className="alt-nav-cta">
-                <div className="alt-cta-text">Work with us</div>
-                <div className="alt-cta-arrow">
-                  <Image src="/Arrow Thick.svg" width={18} height={18} alt="" />
-                </div>
+            <div className="menu-divider"></div>
+            <a href="/about" className="menu-item" onClick={() => setIsOpen(false)}>
+              <span>About us</span>
+              <Image src="/Arrow Thin.svg" width={40} height={40} className="menu-arrow" alt="" />
+            </a>
+
+            <div className="menu-divider"></div>
+            <a href="/projects" className="menu-item" onClick={() => setIsOpen(false)}>
+              <span>Projects</span>
+              <Image src="/Arrow Thin.svg" width={40} height={40} className="menu-arrow" alt="" />
+            </a>
+
+            <a href="/work-with-us" className="menu-cta" onClick={() => setIsOpen(false)}>
+              <div className="cta-text-box">Work with us</div>
+              <div className="cta-arrow-box">
+                <Image src="/Arrow Thick.svg" width={35} height={35} alt="" />
+              </div>
+            </a>
+
+            <div className="navbar-socials">
+              <a href="https://www.linkedin.com/company/ye-etaba-consultancy/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
               </a>
             </div>
-
-            {/* Hamburger for mobile views when using alternate design */}
-            <div
-              className="navbar-menu-button alt-mobile-only"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-expanded={isOpen}
-              role="button"
-              tabIndex={0}
-            >
-              <div className="navbar-hamburger">
-                <span></span>
-                <span></span>
-              </div>
-            </div>
-
-            {/* Mobile menu dropdown under alternate design if clicked */}
-            {isOpen && (
-              <div className="alt-navbar-mobile-menu">
-                <a href="/about" className="alt-mobile-link" onClick={() => setIsOpen(false)}>About us</a>
-                <a href="/projects" className="alt-mobile-link" onClick={() => setIsOpen(false)}>Projects</a>
-                <a href="/work-with-us" className="alt-mobile-cta" onClick={() => setIsOpen(false)}>Work with us</a>
-              </div>
-            )}
           </div>
         )}
       </nav>
-
-      {/* Floating Design Toggle Switch */}
-      {mounted && (
-        <div className="navbar-design-toggle" title="Switch navbar layout design for testing">
-          <span className="toggle-label">Layout:</span>
-          <button
-            onClick={toggleNavbarDesign}
-            className={`toggle-button ${isAltNavbar ? 'alt-active' : ''}`}
-          >
-            <span className="toggle-slider"></span>
-            <span className="toggle-text-classic">Classic</span>
-            <span className="toggle-text-modern">Alternate</span>
-          </button>
-        </div>
-      )}
     </>
   );
 }
