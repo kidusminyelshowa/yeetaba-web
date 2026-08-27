@@ -34,22 +34,14 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="w-full max-w-md bg-zinc-900 border border-zinc-700/60 rounded-2xl p-8 shadow-2xl">
+    <div className="w-full max-w-md bg-black border border-zinc-800 rounded-2xl p-8 shadow-2xl">
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-2.5 mb-4">
           <Image
-            src="/ye-etaba-logo-icon.svg"
+            src="/ye-etaba-full-logo-white.svg"
             alt="Ye Etaba Icon"
-            width={48}
+            width={140}
             height={32}
-            priority
-          />
-          <Image
-            src="/ye-etaba-wordmark.svg"
-            alt="Ye Etaba"
-            width={100}
-            height={20}
-            style={{ width: 'auto', height: '18px' }}
             priority
           />
         </div>
@@ -74,14 +66,14 @@ export default function AdminLoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
             placeholder="••••••••••••"
-            className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#768e54] focus:border-transparent transition-all"
+            className="w-full px-4 py-3 bg-black border border-zinc-700 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#80c998] focus:border-transparent transition-all"
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3.5 px-4 bg-[#768e54] hover:bg-[#657a46] active:bg-[#56683b] text-white font-semibold rounded-xl transition-all shadow-lg hover:shadow-emerald-950/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+          className="w-full py-3.5 px-4 bg-[#80c998] hover:bg-[#81db98] active:bg-[#82e0a0] text-black font-semibold rounded-xl transition-all shadow-lg hover:shadow-emerald-950/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
         >
           {loading ? (
             <span>Authenticating...</span>
