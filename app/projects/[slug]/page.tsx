@@ -1,21 +1,57 @@
 import Image from "next/image";
 import Link from "next/link";
-import { projects } from "../data";
+import { projects as fallbackProjects, Project } from "../data";
+import { client } from "@/sanity/lib/client";
 import "../Projects.css";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const revalidate = 60;
+
 export async function generateStaticParams() {
-  return projects.map((project) => ({
+  try {
+    const sanitySlugs = await client.fetch(`*[_type == "project"]{ "slug": slug.current }`);
+    if (sanitySlugs && sanitySlugs.length > 0) {
+      return sanitySlugs;
+    }
+  } catch (e) {
+    console.error("Sanity generateStaticParams failed:", e);
+  }
+  return fallbackProjects.map((project) => ({
     slug: project.slug,
   }));
 }
 
+async function getProjectBySlug(slug: string): Promise<Project | null> {
+  try {
+    const project = await client.fetch(
+      `*[_type == "project" && slug.current == $slug][0] {
+        "slug": slug.current,
+        title,
+        subtitle,
+        sector,
+        focus,
+        "image": mainImage.asset->url,
+        "images": galleryImages[].asset->url,
+        overview,
+        highlights,
+        deliverables
+      }`,
+      { slug }
+    );
+    if (project) return project;
+  } catch (e) {
+    console.error(`Sanity fetch failed for project slug "${slug}":`, e);
+  }
+
+  return fallbackProjects.find((p) => p.slug === slug) || null;
+}
+
 export default async function ProjectDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = await getProjectBySlug(slug);
 
   if (!project) {
     return (

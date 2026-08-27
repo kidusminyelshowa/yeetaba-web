@@ -2,8 +2,16 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
+import { client } from "@/sanity/lib/client";
 
-const services = [
+interface ServiceItem {
+  id: string;
+  name: string;
+  desc: string;
+  img?: string;
+}
+
+const fallbackServices: ServiceItem[] = [
   {
     id: "01",
     name: "Gender Equality and Social Inclusion (GESI)",
@@ -30,12 +38,32 @@ const services = [
   }
 ];
 
-export default function ServicesSection() {
+interface ServiceItem {
+  id: string;
+  name: string;
+  desc: string;
+  img?: string;
+}
+
+interface ServicesSectionProps {
+  initialServices?: ServiceItem[];
+}
+
+export default function ServicesSection({ initialServices }: ServicesSectionProps) {
   const targetRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const [servicesList, setServicesList] = useState<ServiceItem[]>(
+    initialServices && initialServices.length > 0 ? initialServices : fallbackServices
+  );
   const [scrollDistance, setScrollDistance] = useState(0);
   const [progress, setProgress] = useState(0);
   const [viewportHeight, setViewportHeight] = useState(800);
+
+  useEffect(() => {
+    if (initialServices && initialServices.length > 0) {
+      setServicesList(initialServices);
+    }
+  }, [initialServices]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -108,7 +136,7 @@ export default function ServicesSection() {
       clearTimeout(timer2);
       clearTimeout(timer3);
     };
-  }, []);
+  }, [servicesList]);
 
   return (
     <section
@@ -143,7 +171,7 @@ export default function ServicesSection() {
               transition: "transform 0.05s linear"
             }}
           >
-            {services.map((s) => (
+            {servicesList.map((s) => (
               <div key={s.id} className="service-card-open">
                 <div className="service-card-header">
                   <span className="service-card-index">[{s.id}]</span>
@@ -155,22 +183,31 @@ export default function ServicesSection() {
                   </div>
                   <div className="service-card-image">
                     <div className="service-img-wrapper">
-                      <div
-                        className="service-img-placeholder"
-                        style={{
-                          backgroundColor: "rgba(255, 255, 255, 0.1)",
-                          width: "100%",
-                          height: "100%",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          borderRadius: "20px"
-                        }}
-                      >
-                        <span style={{ color: "#fff", opacity: 0.5, fontSize: "0.8rem" }}>
-                          Image coming soon
-                        </span>
-                      </div>
+                      {s.img ? (
+                        <Image
+                          src={s.img}
+                          alt={s.name}
+                          fill
+                          className="object-cover rounded-2xl"
+                        />
+                      ) : (
+                        <div
+                          className="service-img-placeholder"
+                          style={{
+                            backgroundColor: "rgba(255, 255, 255, 0.1)",
+                            width: "100%",
+                            height: "100%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            borderRadius: "20px"
+                          }}
+                        >
+                          <span style={{ color: "#fff", opacity: 0.5, fontSize: "0.8rem" }}>
+                            Image coming soon
+                          </span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

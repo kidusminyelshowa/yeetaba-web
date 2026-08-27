@@ -5,7 +5,8 @@ import ProblemPill from "./components/ProblemPill";
 import AnimatedSwash from "./components/AnimatedSwash";
 import ServicesSection from "./components/ServicesSection";
 import HowParallax from "./components/HowParallax";
-import { projects } from "./projects/data";
+import { projects as fallbackProjects } from "./projects/data";
+import { client } from "@/sanity/lib/client";
 import "./Home.css";
 
 const clientLogos = [
@@ -15,9 +16,64 @@ const clientLogos = [
   { src: "/Women Deliver.svg", alt: "Women Deliver" },
 ];
 
-export default function Home() {
-  // Find the ELiDA project
-  const elidaProject = projects.find((p) => p.slug === "elida");
+export const revalidate = 60;
+
+async function getFeaturedProject() {
+  try {
+    const sanityProject = await client.fetch(`
+      *[_type == "project" && slug.current == "elida"][0] {
+        "slug": slug.current,
+        title,
+        "image": mainImage.asset->url,
+        overview
+      }
+    `);
+    if (sanityProject) return sanityProject;
+
+    const firstSanityProject = await client.fetch(`
+      *[_type == "project"] | order(sortOrder asc)[0] {
+        "slug": slug.current,
+        title,
+        "image": mainImage.asset->url,
+        overview
+      }
+    `);
+    if (firstSanityProject) return firstSanityProject;
+  } catch (e) {
+    console.error("Sanity fetch failed for homepage featured project:", e);
+  }
+
+  const elida = fallbackProjects.find((p) => p.slug === "elida") || fallbackProjects[0];
+  return elida;
+}
+
+async function getServices() {
+  try {
+    const sanityServices = await client.fetch(`
+      *[_type == "service"] | order(sortOrder asc) {
+        "id": string(sortOrder),
+        "name": name,
+        "desc": description,
+        "img": image.asset->url
+      }
+    `);
+    if (sanityServices && sanityServices.length > 0) {
+      return sanityServices.map((item: any, index: number) => ({
+        id: (index + 1).toString().padStart(2, "0"),
+        name: item.name,
+        desc: item.desc,
+        img: item.img,
+      }));
+    }
+  } catch (e) {
+    console.error("Sanity fetch failed for services on homepage:", e);
+  }
+  return undefined;
+}
+
+export default async function Home() {
+  const elidaProject = await getFeaturedProject();
+  const servicesData = await getServices();
 
   // Truncate the overview text to a reasonable length
   const truncatedOverview = elidaProject?.overview
@@ -162,7 +218,7 @@ export default function Home() {
         </div>
       </section>
 
-      <ServicesSection />
+      <ServicesSection initialServices={servicesData} />
 
       <HowParallax>
         <div className="how-grid">
