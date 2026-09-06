@@ -211,17 +211,25 @@ export default function AboutPage() {
       {/* New Section: Founders & Leadership */}
       <section className="about-founders-section">
         <div className="about-founders-container">
-          <div className="about-founders-grid">
-            <div className="about-founders-intro">
-              <h2>Our Founders</h2>
-              <p>
-                Founded and led by two sisters, bringing together deep complementary expertise in systems design, safeguarding, inclusion, research, and communication.
-              </p>
-            </div>
-            <div className="founders-profiles">
-              <div className="founder-profile-card">
-                <h3>Kidist Gemechu</h3>
+          <div className="about-founders-header">
+            <h2 className="about-founders-title">Leadership & Advisors</h2>
+            <p className="about-founders-desc">
+              Combining complementary expertise in systems design, safeguarding, digital transformation, and organizational strategy.
+            </p>
+          </div>
+          <div className="founders-profiles">
+            <div className="founder-profile-card">
+              <div className="founder-image-wrapper">
+                <Image
+                  src="/Kidist.png"
+                  alt="Kidist Gemechu"
+                  fill
+                  className="founder-img"
+                />
+              </div>
+              <div className="founder-profile-info">
                 <span className="founder-role">Co-Founder & Director</span>
+                <h3>Kidist Gemechu</h3>
                 <p>
                   Specializes in strategy development, organization alignment, GESI implementation, and stakeholder advocacy. Committed to building human-centric structures.
                 </p>
@@ -231,8 +239,18 @@ export default function AboutPage() {
                   <span className="founder-tag">Advocacy</span>
                 </div>
               </div>
-              <div className="founder-profile-card">
-                <h3>Meti Gemechu</h3>
+            </div>
+
+            <div className="founder-profile-card">
+              <div className="founder-image-wrapper">
+                <Image
+                  src="/Meti.jpg"
+                  alt="Meti Gemechu"
+                  fill
+                  className="founder-img"
+                />
+              </div>
+              <div className="founder-profile-info">
                 <span className="founder-role">Co-Founder & Director</span>
                 <p>
                   Focuses on safeguarding, ESG frameworks, research design, compliance management, and training. Focused on turning ethical policies into practical daily work.
@@ -241,6 +259,29 @@ export default function AboutPage() {
                   <span className="founder-tag">Safeguarding</span>
                   <span className="founder-tag">ESG</span>
                   <span className="founder-tag">Research</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="founder-profile-card">
+              <div className="founder-image-wrapper">
+                <Image
+                  src="/Mekdes.JPG"
+                  alt="Mekdes Mintesnot Abayneh"
+                  fill
+                  className="founder-img"
+                />
+              </div>
+              <div className="founder-profile-info">
+                <span className="founder-role">Strategic Advisor</span>
+                <h3>Mekdes Mintesnot Abayneh</h3>
+                <p>
+                  Specializes in ICT strategy, digital transformation, business process automation, and information security leadership. Committed to driving sustainable, high-impact technology and organizational change.
+                </p>
+                <div className="founder-specialties">
+                  <span className="founder-tag">ICT Strategy</span>
+                  <span className="founder-tag">Digital Transformation</span>
+                  <span className="founder-tag">Automation</span>
                 </div>
               </div>
             </div>
