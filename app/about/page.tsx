@@ -214,7 +214,7 @@ export default function AboutPage() {
           <div className="about-founders-header">
             <h2 className="about-founders-title">Leadership & Advisors</h2>
             <p className="about-founders-desc">
-              Combining complementary expertise in systems design, safeguarding, digital transformation, and organizational strategy.
+              Specializes in public health, community nutrition, research, project and operations management, social advocacy, and event management. Experienced in leading multidisciplinary projects from planning through delivery.
             </p>
           </div>
           <div className="founders-profiles">
@@ -234,9 +234,10 @@ export default function AboutPage() {
                   Specializes in strategy development, organization alignment, GESI implementation, and stakeholder advocacy. Committed to building human-centric structures.
                 </p>
                 <div className="founder-specialties">
-                  <span className="founder-tag">GESI</span>
-                  <span className="founder-tag">Strategy</span>
+                  <span className="founder-tag">Public Health</span>
+                  <span className="founder-tag">Operations</span>
                   <span className="founder-tag">Advocacy</span>
+                  <span className="founder-tag">Events</span>
                 </div>
               </div>
             </div>
@@ -252,6 +253,7 @@ export default function AboutPage() {
               </div>
               <div className="founder-profile-info">
                 <span className="founder-role">Co-Founder & Director</span>
+                <h3>Meti Gemechu</h3>
                 <p>
                   Focuses on safeguarding, ESG frameworks, research design, compliance management, and training. Focused on turning ethical policies into practical daily work.
                 </p>
@@ -276,7 +278,7 @@ export default function AboutPage() {
                 <span className="founder-role">Strategic Advisor</span>
                 <h3>Mekdes Mintesnot Abayneh</h3>
                 <p>
-                  Specializes in ICT strategy, digital transformation, business process automation, and information security leadership. Committed to driving sustainable, high-impact technology and organizational change.
+                  Specializes in ICT strategy, digital transformation, business process automation, and information security leadership, with over 38 years of experience.
                 </p>
                 <div className="founder-specialties">
                   <span className="founder-tag">ICT Strategy</span>
