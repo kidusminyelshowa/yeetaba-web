@@ -79,6 +79,14 @@ export default async function ProjectsPage() {
                     </span>
                   ))}
                 </div>
+                <div className="project-card-footer">
+                  <div className="project-card-btn">
+                    <span className="project-card-btn-text">Learn more</span>
+                    <span className="project-card-btn-arrow">
+                      <Image src="/Arrow Thick.svg" width={20} height={20} alt="" />
+                    </span>
+                  </div>
+                </div>
               </div>
             </Link>
           ))}

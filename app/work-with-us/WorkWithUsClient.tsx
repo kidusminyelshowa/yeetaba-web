@@ -73,13 +73,13 @@ export default function WorkWithUsClient() {
   return (
     <div className="work-with-us-container">
       <div className="work-with-us-grid">
-        
+
         {/* Info Column */}
         <div className="info-column">
           <h1 className="work-title">Work With Us</h1>
           <p className="work-intro">
-            Ready to start a project? We support organizations to build robust systems, 
-            clearer strategy, and better integration of safeguarding, ESG, and inclusion. 
+            Ready to start a project? We support organizations to build robust systems,
+            clearer strategy, and better integration of safeguarding, ESG, and inclusion.
             Tell us about your needs and we'll be in touch.
           </p>
 
@@ -104,7 +104,7 @@ export default function WorkWithUsClient() {
             <div className="contact-item">
               <span className="contact-item-label">Address</span>
               <span className="contact-item-value address">
-                Tsehay Getachew Building, Office 016/101,<br />
+                Gabon street, Family building house number 464/702,<br />
                 Addis Ababa, Ethiopia
               </span>
             </div>
@@ -114,7 +114,7 @@ export default function WorkWithUsClient() {
         {/* Form Column */}
         <div className="form-card">
           <form onSubmit={handleSubmit} noValidate>
-            
+
             <div className="form-group">
               <label htmlFor="name" className="form-label">Name *</label>
               <input
