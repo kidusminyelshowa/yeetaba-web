@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { client } from '@/sanity/lib/client';
+import { writeClient } from '@/sanity/lib/write-client';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -8,12 +9,26 @@ export const revalidate = 0;
 export default async function AdminDashboardPage() {
   let projectCount = 0;
   let serviceCount = 0;
+  let newInquiryCount = 0;
+  let inquiryCount = 0;
 
   try {
     projectCount = await client.fetch(`count(*[_type == "project"])`);
     serviceCount = await client.fetch(`count(*[_type == "service"])`);
   } catch (e) {
     console.error('Failed to fetch counts from Sanity:', e);
+  }
+
+  try {
+    // Inquiries are private documents, so they need the token client.
+    const counts = await writeClient.fetch<{ total: number; unread: number }>(`{
+      "total": count(*[_type == "inquiry" && status != "archived"]),
+      "unread": count(*[_type == "inquiry" && status == "new"])
+    }`);
+    inquiryCount = counts.total;
+    newInquiryCount = counts.unread;
+  } catch (e) {
+    console.error('Failed to fetch inquiry counts from Sanity:', e);
   }
 
   return (
@@ -61,6 +76,21 @@ export default async function AdminDashboardPage() {
             </Link>
           </div>
         </div>
+      </div>
+
+      <div className="admin-card p-6 mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-white">Inquiries</h3>
+          <span className={`admin-badge ${newInquiryCount > 0 ? 'admin-badge-green' : ''}`}>
+            {newInquiryCount} New · {inquiryCount} Total
+          </span>
+        </div>
+        <p className="text-sm text-zinc-400 mb-6">
+          Messages submitted through the Work With Us contact form.
+        </p>
+        <Link href="/admin/inquiries" className="admin-btn admin-btn-primary">
+          View Inquiries
+        </Link>
       </div>
 
       <div className="admin-card p-6">

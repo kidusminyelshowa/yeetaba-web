@@ -1,5 +1,6 @@
 'use server';
 
+import { checkAuth } from '../actions';
 import { writeClient } from '@/sanity/lib/write-client';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -22,6 +23,7 @@ export interface ProjectFormData {
 }
 
 export async function uploadImageToSanity(file: File) {
+  if (!(await checkAuth())) throw new Error('Not authorized.');
   const arrayBuffer = await file.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
 
@@ -34,6 +36,7 @@ export async function uploadImageToSanity(file: File) {
 }
 
 export async function saveProjectAction(data: ProjectFormData) {
+  if (!(await checkAuth())) return { success: false, error: 'Not authorized.' };
   try {
     let mainImageAssetRef = data.mainImageAssetRef;
 
@@ -109,6 +112,7 @@ export async function saveProjectAction(data: ProjectFormData) {
 }
 
 export async function deleteProjectAction(id: string) {
+  if (!(await checkAuth())) return { success: false, error: 'Not authorized.' };
   try {
     await writeClient.delete(id);
     revalidatePath('/');

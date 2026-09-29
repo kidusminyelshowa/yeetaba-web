@@ -11,7 +11,9 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectFrom = searchParams.get('from') || '/admin';
+  // Only allow redirects back into the admin area, never to another site.
+  const from = searchParams.get('from');
+  const redirectFrom = from && /^\/admin(\/|$)/.test(from) ? from : '/admin';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

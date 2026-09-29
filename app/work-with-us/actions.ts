@@ -1,17 +1,16 @@
-"use strict";
 "use server";
 
-import fs from "fs/promises";
-import path from "path";
+import crypto from "crypto";
+import { revalidatePath } from "next/cache";
+import { writeClient } from "@/sanity/lib/write-client";
 
-export interface ContactSubmission {
-  name: string;
-  email: string;
-  organization: string;
-  service: string;
-  message: string;
-  timestamp: string;
-}
+const MAX_LENGTHS = {
+  name: 200,
+  email: 320,
+  organization: 200,
+  service: 200,
+  message: 5000,
+};
 
 export async function submitContactForm(formData: {
   name: string;
@@ -21,40 +20,50 @@ export async function submitContactForm(formData: {
   message: string;
 }) {
   try {
+    const name = String(formData.name ?? "").trim();
+    const email = String(formData.email ?? "").trim();
+    const organization = String(formData.organization ?? "").trim();
+    const service = String(formData.service ?? "").trim();
+    const message = String(formData.message ?? "").trim();
+
     // Validate inputs
-    if (!formData.name || !formData.name.trim()) {
+    if (!name) {
       return { success: false, error: "Name is required." };
     }
-    if (!formData.email || !formData.email.trim() || !formData.email.includes("@")) {
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return { success: false, error: "A valid email is required." };
     }
-    if (!formData.service || formData.service === "") {
+    if (!service) {
       return { success: false, error: "Please select a service." };
     }
-    if (!formData.message || !formData.message.trim()) {
+    if (!message) {
       return { success: false, error: "Message is required." };
     }
-
-    const submission: ContactSubmission = {
-      ...formData,
-      timestamp: new Date().toISOString(),
-    };
-
-    // Store in a local json file for audit/persistence
-    const filePath = path.join(process.cwd(), "submissions.json");
-    let currentSubmissions: ContactSubmission[] = [];
-    
-    try {
-      const data = await fs.readFile(filePath, "utf-8");
-      currentSubmissions = JSON.parse(data);
-    } catch (e) {
-      // file might not exist yet, that's fine
+    if (
+      name.length > MAX_LENGTHS.name ||
+      email.length > MAX_LENGTHS.email ||
+      organization.length > MAX_LENGTHS.organization ||
+      service.length > MAX_LENGTHS.service ||
+      message.length > MAX_LENGTHS.message
+    ) {
+      return { success: false, error: "One or more fields are too long." };
     }
 
-    currentSubmissions.push(submission);
-    await fs.writeFile(filePath, JSON.stringify(currentSubmissions, null, 2), "utf-8");
+    // The `inquiries.` id prefix keeps these documents private on public datasets.
+    await writeClient.create({
+      _id: `inquiries.${crypto.randomUUID()}`,
+      _type: "inquiry",
+      name,
+      email,
+      organization,
+      service,
+      message,
+      status: "new",
+      submittedAt: new Date().toISOString(),
+    });
 
-    console.log("New contact form submission received:", submission);
+    revalidatePath("/admin");
+    revalidatePath("/admin/inquiries");
 
     return { success: true };
   } catch (error) {

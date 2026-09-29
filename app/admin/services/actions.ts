@@ -3,6 +3,7 @@
 import { writeClient } from '@/sanity/lib/write-client';
 import { revalidatePath } from 'next/cache';
 import { uploadImageToSanity } from '../projects/actions';
+import { checkAuth } from '../actions';
 
 export interface ServiceFormData {
   id?: string;
@@ -14,6 +15,7 @@ export interface ServiceFormData {
 }
 
 export async function saveServiceAction(data: ServiceFormData) {
+  if (!(await checkAuth())) return { success: false, error: 'Not authorized.' };
   try {
     let imageAssetRef = data.imageAssetRef;
 
@@ -59,6 +61,7 @@ export async function saveServiceAction(data: ServiceFormData) {
 }
 
 export async function deleteServiceAction(id: string) {
+  if (!(await checkAuth())) return { success: false, error: 'Not authorized.' };
   try {
     await writeClient.delete(id);
     revalidatePath('/');
