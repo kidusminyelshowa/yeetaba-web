@@ -228,13 +228,13 @@ export default function AboutPage() {
                 />
               </div>
               <div className="founder-profile-info">
-                <span className="founder-role">Co-Founder & Director</span>
+                <span className="founder-role">Co-Founder & Director of Operations</span>
                 <h3>Kidist Gemechu</h3>
                 <p>
-                  Specializes in strategy development, organization alignment, GESI implementation, and stakeholder advocacy. Committed to building human-centric structures.
+                  Specializes in <strong>public health, community nutrition, research, project and operations management, social advocacy, and event management</strong>. Experienced in leading multidisciplinary projects from planning through delivery.
                 </p>
                 <div className="founder-specialties">
-                  <span className="founder-tag">Public Health</span>
+                  <span className="founder-tag">Research</span>
                   <span className="founder-tag">Operations</span>
                   <span className="founder-tag">Advocacy</span>
                   <span className="founder-tag">Events</span>
