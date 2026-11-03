@@ -192,6 +192,11 @@
   overflow: hidden;
 }
 
+.project-detail-hero-media {
+  position: absolute;
+  inset: 0;
+}
+
 .project-detail-hero img {
   object-fit: cover;
 }
@@ -444,6 +449,42 @@
     padding: 60px 24px;
   }
 
+  /* On small screens, stack the title block below the cover image
+     instead of overlaying it, so busy images can't clash with the text. */
+  .project-detail-hero {
+    height: auto;
+    min-height: 0;
+    background: var(--brand-secondary);
+  }
+
+  .project-detail-hero-media {
+    position: relative;
+    inset: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .project-detail-hero-overlay {
+    display: none;
+  }
+
+  .project-detail-header-wrapper {
+    position: static;
+    padding: 32px 24px 40px;
+  }
+
+  .project-detail-title {
+    font-size: 40px;
+    line-height: 1.05;
+    text-shadow: none;
+    overflow-wrap: anywhere;
+  }
+
+  .project-detail-subtitle {
+    font-size: 18px;
+    line-height: 1.4;
+    text-shadow: none;
+  }
+
   .projects-title {
     font-size: 44px;
   }
@@ -467,5 +508,12 @@
 
   .project-card:hover .project-card-btn-arrow {
     width: 46px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Keep the cover image clear of the fixed full-width mobile navbar. */
+  .project-detail-hero {
+    padding-top: 70px;
   }
 }

@@ -72,14 +72,16 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     <main className="project-detail-page">
       {/* Project Hero Header */}
       <section className="project-detail-hero">
-        <Image
-          src={project.image}
-          alt={`${project.title} Banner`}
-          fill
-          priority
-          sizes="100vw"
-        />
-        <div className="project-detail-hero-overlay"></div>
+        <div className="project-detail-hero-media">
+          <Image
+            src={project.image}
+            alt={`${project.title} Banner`}
+            fill
+            priority
+            sizes="100vw"
+          />
+          <div className="project-detail-hero-overlay"></div>
+        </div>
         <div className="project-detail-header-wrapper">
           <span className="project-detail-category">{project.sector}</span>
           <h1 className="project-detail-title">{project.title}</h1>
