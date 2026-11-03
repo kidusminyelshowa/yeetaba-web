@@ -400,6 +400,10 @@
 
 .detail-back-button-container {
   margin-top: 48px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 40px;
 }
 
 .back-link {
@@ -415,6 +419,11 @@
 
 .back-link-arrow {
   transform: rotate(180deg);
+  width: 20px;
+  height: 20px;
+}
+
+.next-link-arrow {
   width: 20px;
   height: 20px;
 }

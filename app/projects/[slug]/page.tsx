@@ -49,9 +49,32 @@ async function getProjectBySlug(slug: string): Promise<Project | null> {
   return fallbackProjects.find((p) => p.slug === slug) || null;
 }
 
+async function getNextProject(slug: string): Promise<{ slug: string; title: string } | null> {
+  let ordered: { slug: string; title: string }[] = [];
+  try {
+    // Same ordering as the projects listing page, so "next" matches what visitors see there.
+    ordered = await client.fetch(
+      `*[_type == "project"] | order(sortOrder asc, _createdAt desc) { "slug": slug.current, title }`
+    );
+  } catch (e) {
+    console.error("Sanity fetch failed for next project, using fallback:", e);
+  }
+  if (!ordered || ordered.length === 0) {
+    ordered = fallbackProjects.map(({ slug, title }) => ({ slug, title }));
+  }
+
+  if (ordered.length < 2) return null;
+  const index = ordered.findIndex((p) => p.slug === slug);
+  // Wrap around to the first project after the last one.
+  return ordered[(index + 1) % ordered.length];
+}
+
 export default async function ProjectDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const project = await getProjectBySlug(slug);
+  const [project, nextProject] = await Promise.all([
+    getProjectBySlug(slug),
+    getNextProject(slug),
+  ]);
 
   if (!project) {
     return (
@@ -127,6 +150,16 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                 <Image src="/Arrow Thin.svg" width={20} height={20} alt="" className="back-link-arrow" />
                 <span>Back to projects</span>
               </Link>
+              {nextProject && (
+                <Link
+                  href={`/projects/${nextProject.slug}`}
+                  className="back-link next-project-link"
+                  aria-label={`Next project: ${nextProject.title}`}
+                >
+                  <span>Next project</span>
+                  <Image src="/Arrow Thin.svg" width={20} height={20} alt="" className="next-link-arrow" />
+                </Link>
+              )}
             </div>
           </aside>
 
