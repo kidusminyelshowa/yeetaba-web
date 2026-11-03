@@ -527,6 +527,25 @@
 }
 
 @media (max-width: 600px) {
+  /* Keep "Back to projects" and "Next project" on one line on phones. */
+  .detail-back-button-container {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .back-link {
+    font-size: clamp(14px, 4.2vw, 18px);
+    gap: 8px;
+    white-space: nowrap;
+  }
+
+  .back-link-arrow,
+  .next-link-arrow {
+    width: 16px;
+    height: 16px;
+  }
+
   /* Keep the cover image clear of the fixed full-width mobile navbar. */
   .project-detail-hero {
     padding-top: 70px;
