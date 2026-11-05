@@ -221,7 +221,7 @@ export default function AboutPage() {
             <div className="founder-profile-card">
               <div className="founder-image-wrapper">
                 <Image
-                  src="/Kidist.png"
+                  src="/Kidist.webp"
                   alt="Kidist Gemechu"
                   fill
                   className="founder-img"
